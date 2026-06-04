@@ -1,0 +1,1 @@
+ALTER TABLE `vehicles` MODIFY COLUMN `dailyKmLimit` int NOT NULL DEFAULT 100;

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!-- Cache-control: prevent browsers from caching the HTML shell.
+         JS/CSS chunks are cache-safe via content hashes in filenames.
+         The HTML must always be fresh so it references the latest chunk URLs. -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>RIDDY - Aluguel de Carros entre Pessoas | O Turo Brasileiro</title>
+    <meta name="description" content="RIDDY é a plataforma P2P de aluguel de carros do Brasil. Alugue carros únicos de anfitriões locais ou ganhe dinheiro compartilhando seu veículo. Seguro incluso, verificação completa." />
+    <meta name="keywords" content="aluguel de carros, carros para alugar, aluguel P2P, compartilhamento de carros, RIDDY, Turo Brasil" />
+    <meta name="author" content="RIDDY" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="RIDDY - Aluguel de Carros entre Pessoas" />
+    <meta property="og:description" content="Alugue carros únicos de anfitriões locais em todo o Brasil. Seguro incluso, verificação completa, suporte 24h." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Mercado Pago SDK -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <!-- Mercado Pago Security Script - Coleta Device ID para reduzir rejeições por alto risco -->
+    <script src="https://www.mercadopago.com/v2/security.js" view="checkout" output="MP_DEVICE_SESSION_ID"></script>
+    
+    <!-- Google Fonts: Sora + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+{
+  "query": "\nSELECT \n  id,\n  status,\n  contractAccepted,\n  contractAcceptedAt,\n  contractAcceptedIp,\n  contractVersion,\n  contractPdfUrl,\n  renterId,\n  hostId,\n  totalAmount,\n  createdAt\nFROM bookings\nWHERE status IN ('confirmed', 'in_progress', 'completed')\nORDER BY createdAt DESC\nLIMIT 10;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute \nSELECT \n  id,\n  status,\n  contractAccepted,\n  contractAcceptedAt,\n  contractAcceptedIp,\n  contractVersion,\n  contractPdfUrl,\n  renterId,\n  hostId,\n  totalAmount,\n  createdAt\nFROM bookings\nWHERE status IN ('confirmed', 'in_progress', 'completed')\nORDER BY createdAt DESC\nLIMIT 10;\n",
+  "rows": [
+    {
+      "id": "1680001",
+      "status": "confirmed",
+      "contractAccepted": "1",
+      "contractAcceptedAt": "2026-05-07 16:33:32",
+      "contractAcceptedIp": "NULL",
+      "contractVersion": "1.0",
+      "contractPdfUrl": "NULL",
+      "renterId": "1230001",
+      "hostId": "300013",
+      "totalAmount": "358.40",
+      "createdAt": "2026-05-07 16:33:32"
+    },
+    {
+      "id": "1650001",
+      "status": "confirmed",
+      "contractAccepted": "1",
+      "contractAcceptedAt": "2026-05-05 18:11:15",
+      "contractAcceptedIp": "NULL",
+      "contractVersion": "1.0",
+      "contractPdfUrl": "NULL",
+      "renterId": "1230001",
+      "hostId": "300013",
+      "totalAmount": "280.00",
+      "createdAt": "2026-05-05 18:11:14"
+    },
+    {
+      "id": "1500002",
+      "status": "confirmed",
+      "contractAccepted": "1",
+      "contractAcceptedAt": "2026-04-18 03:44:37",
+      "contractAcceptedIp": "NULL",
+      "contractVersion": "1.0",
+      "contractPdfUrl": "NULL",
+      "renterId": "300013",
+      "hostId": "1",
+      "totalAmount": "448.00",
+      "createdAt": "2026-04-18 03:44:36"
+    },
+    {
+      "id": "1440029",
+      "status": "confirmed",
+      "contractAccepted": "1",
+      "contractAcceptedAt": "2026-04-18 02:00:06",
+      "contractAcceptedIp": "NULL",
+      "contractVersion": "1.0",
+      "contractPdfUrl": "NULL",
+      "renterId": "300013",
+      "hostId": "1",
+      "totalAmount": "672.00",
+      "createdAt": "2026-04-18 02:00:06"
+    },
+    {
+      "id": "780001",
+      "status": "confirmed",
+      "contractAccepted": "1",
+      "contractAcceptedAt": "2026-04-03 22:29:27",
+      "contractAcceptedIp": "NULL",
+      "contractVersion": "1.0",
+      "contractPdfUrl": "NULL",
+      "renterId": "1",
+      "hostId": "780249",
+      "totalAmount": "222.88",
+      "createdAt": "2026-04-03 22:29:26"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tstatus\tcontractAccepted\tcontractAcceptedAt\tcontractAcceptedIp\tcontractVersion\tcontractPdfUrl\trenterId\thostId\ttotalAmount\tcreatedAt\n1680001\tconfirmed\t1\t2026-05-07 16:33:32\tNULL\t1.0\tNULL\t1230001\t300013\t358.40\t2026-05-07 16:33:32\n1650001\tconfirmed\t1\t2026-05-05 18:11:15\tNULL\t1.0\tNULL\t1230001\t300013\t280.00\t2026-05-05 18:11:14\n1500002\tconfirmed\t1\t2026-04-18 03:44:37\tNULL\t1.0\tNULL\t300013\t1\t448.00\t2026-04-18 03:44:36\n1440029\tconfirmed\t1\t2026-04-18 02:00:06\tNULL\t1.0\tNULL\t300013\t1\t672.00\t2026-04-18 02:00:06\n780001\tconfirmed\t1\t2026-04-03 22:29:27\tNULL\t1.0\tNULL\t1\t780249\t222.88\t2026-04-03 22:29:26\n",
+  "stderr": "",
+  "execution_time_ms": 575
+}

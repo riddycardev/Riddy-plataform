@@ -1,0 +1,37 @@
+{
+  "query": "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vehicles' AND COLUMN_NAME LIKE '%city%' OR COLUMN_NAME LIKE '%location%' OR COLUMN_NAME LIKE '%address%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vehicles' AND COLUMN_NAME LIKE '%city%' OR COLUMN_NAME LIKE '%location%' OR COLUMN_NAME LIKE '%address%';",
+  "rows": [
+    {
+      "COLUMN_NAME": "trunkCapacity"
+    },
+    {
+      "COLUMN_NAME": "addressVerified"
+    },
+    {
+      "COLUMN_NAME": "addressStreet"
+    },
+    {
+      "COLUMN_NAME": "addressNumber"
+    },
+    {
+      "COLUMN_NAME": "addressComplement"
+    },
+    {
+      "COLUMN_NAME": "addressNeighborhood"
+    },
+    {
+      "COLUMN_NAME": "addressCity"
+    },
+    {
+      "COLUMN_NAME": "addressState"
+    },
+    {
+      "COLUMN_NAME": "addressZipCode"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\ntrunkCapacity\naddressVerified\naddressStreet\naddressNumber\naddressComplement\naddressNeighborhood\naddressCity\naddressState\naddressZipCode\n",
+  "stderr": "",
+  "execution_time_ms": 76
+}

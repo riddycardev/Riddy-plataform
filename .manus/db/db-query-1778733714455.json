@@ -1,0 +1,18 @@
+{
+  "query": "SELECT id, status, contractAccepted, contractAcceptedAt, contractAcceptedIp, contractVersion FROM bookings ORDER BY id DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, status, contractAccepted, contractAcceptedAt, contractAcceptedIp, contractVersion FROM bookings ORDER BY id DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1740001",
+      "status": "confirmed",
+      "contractAccepted": "1",
+      "contractAcceptedAt": "2026-05-13 23:01:29",
+      "contractAcceptedIp": "168.181.57.15",
+      "contractVersion": "1.0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tstatus\tcontractAccepted\tcontractAcceptedAt\tcontractAcceptedIp\tcontractVersion\n1740001\tconfirmed\t1\t2026-05-13 23:01:29\t168.181.57.15\t1.0\n",
+  "stderr": "",
+  "execution_time_ms": 596
+}

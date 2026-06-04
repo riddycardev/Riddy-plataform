@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, brand, dailyPrice, CAST(dailyPrice AS DECIMAL) as dailyPrice_decimal FROM vehicles WHERE pickupCity = 'Porto Velho' LIMIT 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, dailyPrice, CAST(dailyPrice AS DECIMAL) as dailyPrice_decimal FROM vehicles WHERE pickupCity = 'Porto Velho' LIMIT 1;",
+  "rows": [
+    {
+      "id": "90003",
+      "brand": "Nissan",
+      "dailyPrice": "199.00",
+      "dailyPrice_decimal": "199"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tdailyPrice\tdailyPrice_decimal\n90003\tNissan\t199.00\t199\n",
+  "stderr": "",
+  "execution_time_ms": 358
+}

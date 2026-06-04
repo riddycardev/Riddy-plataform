@@ -1,0 +1,20 @@
+{
+  "query": "SELECT id, brand, model, pickupCity, pickupState, status, isVerified, dailyPrice FROM vehicles WHERE pickupCity LIKE '%Porto Velho%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, model, pickupCity, pickupState, status, isVerified, dailyPrice FROM vehicles WHERE pickupCity LIKE '%Porto Velho%';",
+  "rows": [
+    {
+      "id": "90003",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "pickupCity": "Porto Velho",
+      "pickupState": "RO",
+      "status": "active",
+      "isVerified": "1",
+      "dailyPrice": "199.00"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tmodel\tpickupCity\tpickupState\tstatus\tisVerified\tdailyPrice\n90003\tNissan\tsentra exc\tPorto Velho\tRO\tactive\t1\t199.00\n",
+  "stderr": "",
+  "execution_time_ms": 348
+}

@@ -1,0 +1,67 @@
+{
+  "query": "SHOW TABLES LIKE 'user_verifications'; DESCRIBE user_verifications;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SHOW TABLES LIKE 'user_verifications'; DESCRIBE user_verifications;",
+  "rows": [
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "user_verifications"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "Field\tType\tNull\tKey\tDefault\tExtra"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "id\tint\tNO\tPRI\tNULL\tauto_increment"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "userId\tint\tNO\tUNI\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "status\tenum('pending','submitted','approved','rejected','blocked')\tNO\t\tpending\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "cpfSubmitted\ttinyint(1)\tNO\t\t0\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "cnhSubmitted\ttinyint(1)\tNO\t\t0\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "incomeProofSubmitted\ttinyint(1)\tNO\t\t0\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "attemptCount\tint\tNO\t\t0\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "lastAttemptAt\ttimestamp\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "reviewedBy\tint\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "reviewedAt\ttimestamp\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "reviewNotes\ttext\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "submittedAt\ttimestamp\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "approvedAt\ttimestamp\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "rejectedAt\ttimestamp\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "blockedAt\ttimestamp\tYES\t\tNULL\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "createdAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t"
+    },
+    {
+      "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)": "updatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\tDEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+    }
+  ],
+  "messages": [],
+  "stdout": "Tables_in_5MKE4LDVikZTU9bHnRFBMx (user_verifications)\nuser_verifications\nField\tType\tNull\tKey\tDefault\tExtra\nid\tint\tNO\tPRI\tNULL\tauto_increment\nuserId\tint\tNO\tUNI\tNULL\t\nstatus\tenum('pending','submitted','approved','rejected','blocked')\tNO\t\tpending\t\ncpfSubmitted\ttinyint(1)\tNO\t\t0\t\ncnhSubmitted\ttinyint(1)\tNO\t\t0\t\nincomeProofSubmitted\ttinyint(1)\tNO\t\t0\t\nattemptCount\tint\tNO\t\t0\t\nlastAttemptAt\ttimestamp\tYES\t\tNULL\t\nreviewedBy\tint\tYES\t\tNULL\t\nreviewedAt\ttimestamp\tYES\t\tNULL\t\nreviewNotes\ttext\tYES\t\tNULL\t\nsubmittedAt\ttimestamp\tYES\t\tNULL\t\napprovedAt\ttimestamp\tYES\t\tNULL\t\nrejectedAt\ttimestamp\tYES\t\tNULL\t\nblockedAt\ttimestamp\tYES\t\tNULL\t\ncreatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\nupdatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\tDEFAULT_GENERATED on update CURRENT_TIMESTAMP\n",
+  "stderr": "",
+  "execution_time_ms": 86
+}

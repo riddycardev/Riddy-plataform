@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, brand, pickupCity, dailyPrice, status FROM vehicles WHERE status = 'active' AND pickupCity LIKE '%Porto Velho%' AND CAST(dailyPrice AS DECIMAL) >= 0 AND CAST(dailyPrice AS DECIMAL) <= 1500;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, pickupCity, dailyPrice, status FROM vehicles WHERE status = 'active' AND pickupCity LIKE '%Porto Velho%' AND CAST(dailyPrice AS DECIMAL) >= 0 AND CAST(dailyPrice AS DECIMAL) <= 1500;",
+  "rows": [
+    {
+      "id": "90003",
+      "brand": "Nissan",
+      "pickupCity": "Porto Velho",
+      "dailyPrice": "199.00",
+      "status": "active"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tpickupCity\tdailyPrice\tstatus\n90003\tNissan\tPorto Velho\t199.00\tactive\n",
+  "stderr": "",
+  "execution_time_ms": 362
+}

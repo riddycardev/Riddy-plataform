@@ -1,0 +1,8 @@
+{
+  "query": "SELECT id, status, contract_pdf_url, renter_full_name FROM bookings ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, status, contract_pdf_url, renter_full_name FROM bookings ORDER BY id;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 1: Unknown column 'contract_pdf_url' in 'field list'"
+  ]
+}

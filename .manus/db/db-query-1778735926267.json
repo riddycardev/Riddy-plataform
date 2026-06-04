@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, status, contractPdfUrl, renterFullName FROM bookings ORDER BY id;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, status, contractPdfUrl, renterFullName FROM bookings ORDER BY id;",
+  "rows": [
+    {
+      "id": "1740001",
+      "status": "confirmed",
+      "contractPdfUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/contracts/booking-1740001-1778713480560.pdf",
+      "renterFullName": "Igor dos Santos laudisse"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tstatus\tcontractPdfUrl\trenterFullName\n1740001\tconfirmed\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/contracts/booking-1740001-1778713480560.pdf\tIgor dos Santos laudisse\n",
+  "stderr": "",
+  "execution_time_ms": 575
+}

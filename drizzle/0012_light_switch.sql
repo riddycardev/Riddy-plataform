@@ -1,0 +1,20 @@
+CREATE TABLE `vehicle_verifications` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`vehicleId` int NOT NULL,
+	`status` enum('pending','approved','rejected','blocked') NOT NULL DEFAULT 'pending',
+	`crlvStatus` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+	`insuranceStatus` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+	`ownershipMatchStatus` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+	`reviewedBy` int,
+	`reviewedAt` timestamp,
+	`adminNotes` text,
+	`rejectionReason` text,
+	`crlvOwnerName` text,
+	`crlvPlate` varchar(10),
+	`insuranceProvider` varchar(100),
+	`insuranceExpiryDate` timestamp,
+	`createdAt` timestamp NOT NULL DEFAULT (now()),
+	`updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `vehicle_verifications_id` PRIMARY KEY(`id`),
+	CONSTRAINT `vehicle_verifications_vehicleId_unique` UNIQUE(`vehicleId`)
+);

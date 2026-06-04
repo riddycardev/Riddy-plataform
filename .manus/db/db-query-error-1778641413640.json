@@ -1,0 +1,8 @@
+{
+  "query": "\nSELECT \n  id,\n  status,\n  contract_accepted,\n  contract_accepted_at,\n  contract_accepted_ip,\n  contract_version,\n  contract_pdf_url,\n  renter_id,\n  host_id,\n  vehicle_id,\n  created_at\nFROM bookings\nWHERE status IN ('confirmed', 'in_progress', 'completed')\nORDER BY created_at DESC\nLIMIT 10;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute \nSELECT \n  id,\n  status,\n  contract_accepted,\n  contract_accepted_at,\n  contract_accepted_ip,\n  contract_version,\n  contract_pdf_url,\n  renter_id,\n  host_id,\n  vehicle_id,\n  created_at\nFROM bookings\nWHERE status IN ('confirmed', 'in_progress', 'completed')\nORDER BY created_at DESC\nLIMIT 10;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 2: Unknown column 'contract_accepted' in 'field list'"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "query": "INSERT IGNORE INTO vehicle_verifications (vehicleId, status, crlvStatus, ownershipMatchStatus)\nSELECT id, 'pending', 'pending', 'pending'\nFROM vehicles\nWHERE crlvUrl IS NOT NULL AND crlvUrl != '';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute INSERT IGNORE INTO vehicle_verifications (vehicleId, status, crlvStatus, ownershipMatchStatus)\nSELECT id, 'pending', 'pending', 'pending'\nFROM vehicles\nWHERE crlvUrl IS NOT NULL AND crlvUrl != '';",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 65
+}

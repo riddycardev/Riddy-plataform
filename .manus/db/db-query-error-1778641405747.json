@@ -1,0 +1,8 @@
+{
+  "query": "\nSELECT \n  id,\n  status,\n  contractAccepted,\n  contractAcceptedAt,\n  contractAcceptedIp,\n  contractVersion,\n  contractPdfUrl,\n  renterId,\n  hostId,\n  vehicleId,\n  totalPrice,\n  createdAt\nFROM bookings\nWHERE status IN ('confirmed', 'in_progress', 'completed')\nORDER BY createdAt DESC\nLIMIT 10;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute \nSELECT \n  id,\n  status,\n  contractAccepted,\n  contractAcceptedAt,\n  contractAcceptedIp,\n  contractVersion,\n  contractPdfUrl,\n  renterId,\n  hostId,\n  vehicleId,\n  totalPrice,\n  createdAt\nFROM bookings\nWHERE status IN ('confirmed', 'in_progress', 'completed')\nORDER BY createdAt DESC\nLIMIT 10;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 2: Unknown column 'totalprice' in 'field list'"
+  ]
+}

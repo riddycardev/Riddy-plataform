@@ -1,0 +1,9 @@
+{
+  "query": "INSERT INTO bookings (vehicleId, renterId, hostId, startDate, endDate, pickupLocation, dailyKmLimit, extraKmPrice, dailyRate, totalDays, subtotal, serviceFee, insuranceFee, securityDeposit, totalAmount, status, contractAccepted, contractAcceptedAt, contractVersion) VALUES (150002, 1, 1590001, '2026-03-31 00:00:00', '2026-04-04 00:00:00', 'São Paulo, SP', 100, '0.50', '150.00', 4, '600.00', '72.00', '140.00', '500.00', '812.00', 'pending_payment', true, NOW(), '1.0');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute INSERT INTO bookings (vehicleId, renterId, hostId, startDate, endDate, pickupLocation, dailyKmLimit, extraKmPrice, dailyRate, totalDays, subtotal, serviceFee, insuranceFee, securityDeposit, totalAmount, status, contractAccepted, contractAcceptedAt, contractVersion) VALUES (150002, 1, 1590001, '2026-03-31 00:00:00', '2026-04-04 00:00:00', 'São Paulo, SP', 100, '0.50', '150.00', 4, '600.00', '72.00', '140.00', '500.00', '812.00', 'pending_payment', true, NOW(), '1.0');",
+  "rows": [],
+  "messages": [],
+  "stdout": "",
+  "stderr": "",
+  "execution_time_ms": 66
+}

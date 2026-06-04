@@ -1,0 +1,1 @@
+ALTER TABLE `vehicles` ADD `pickupCityNormalized` varchar(100) NOT NULL;

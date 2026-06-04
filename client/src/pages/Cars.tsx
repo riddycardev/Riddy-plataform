@@ -1,0 +1,1136 @@
+/**
+ * Search Results Page - Airbnb Style
+ * Shows filtered list of vehicles with interactive map
+ * Map appears ONLY after search with city and dates
+ * Features: Price slider on map, synchronized filtering
+ * Advanced filters: transmission, fuel type, seats
+ * Integrates with real database for vehicle data
+ */
+
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { useLocation, useSearch, Link } from "wouter";
+import { motion, AnimatePresence } from "framer-motion";
+import { trpc } from "@/lib/trpc";
+import { 
+  MapPin, 
+  Star, 
+  SlidersHorizontal,
+  Grid,
+  Map as MapIcon,
+  X,
+  ChevronLeft,
+  Zap,
+  Calendar,
+  Users,
+  Fuel,
+  DollarSign,
+  Settings2,
+  Car,
+  Loader2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import Header from "@/components/Header";
+import { MapView } from "@/components/Map";
+import { FavoriteButton } from "@/components/FavoriteButton";
+import CityAutocomplete from "@/components/CityAutocomplete";
+import { VehicleGrid } from "@/components/VehicleGrid";
+
+// City coordinates (city center only - no exact addresses)
+// Synchronized with HeroSection autocomplete list
+const cityCoordinates: Record<string, { lat: number; lng: number }> = {
+  // Major Cities
+  "São Paulo": { lat: -23.5505, lng: -46.6333 },
+  "Rio de Janeiro": { lat: -22.9068, lng: -43.1729 },
+  "Belo Horizonte": { lat: -19.9167, lng: -43.9345 },
+  "Brasília": { lat: -15.7942, lng: -47.8822 },
+  "Curitiba": { lat: -25.4284, lng: -49.2733 },
+  "Salvador": { lat: -12.9714, lng: -38.5014 },
+  "Fortaleza": { lat: -3.7172, lng: -38.5433 },
+  "Recife": { lat: -8.0476, lng: -34.8770 },
+  "Porto Alegre": { lat: -30.0346, lng: -51.2177 },
+  "Florianópolis": { lat: -27.5954, lng: -48.5480 },
+  "Manaus": { lat: -3.1190, lng: -60.0217 },
+  "Goiânia": { lat: -16.6869, lng: -49.2648 },
+  "Campinas": { lat: -22.9099, lng: -47.0626 },
+  "São Bernardo do Campo": { lat: -23.6914, lng: -46.5646 },
+  "Guarulhos": { lat: -23.4538, lng: -46.5333 },
+  "Niterói": { lat: -22.8833, lng: -43.1036 },
+  "Santos": { lat: -23.9608, lng: -46.3336 },
+  "Vitória": { lat: -20.3155, lng: -40.3128 },
+  "Natal": { lat: -5.7793, lng: -35.2009 },
+  "Maceió": { lat: -9.6658, lng: -35.7350 },
+  "João Pessoa": { lat: -7.1195, lng: -34.8450 },
+  "Campo Grande": { lat: -20.4697, lng: -54.6201 },
+  "Cuiabá": { lat: -15.6014, lng: -56.0979 },
+  "Belém": { lat: -1.4558, lng: -48.4902 },
+  "Uberlândia": { lat: -18.9186, lng: -48.2772 },
+  "Ribeirão Preto": { lat: -21.1775, lng: -47.8103 },
+  "Sorocaba": { lat: -23.5015, lng: -47.4526 },
+  "Joinville": { lat: -26.3045, lng: -48.8487 },
+  "Londrina": { lat: -23.3045, lng: -51.1696 },
+  "Juiz de Fora": { lat: -21.7642, lng: -43.3503 },
+  // Additional capitals
+  "Aracaju": { lat: -10.9472, lng: -37.0731 },
+  "Teresina": { lat: -5.0892, lng: -42.8019 },
+  "São Luís": { lat: -2.5307, lng: -44.3068 },
+  "Palmas": { lat: -10.1689, lng: -48.3317 },
+  "Porto Velho": { lat: -8.7612, lng: -63.9004 },
+  "Rio Branco": { lat: -9.9754, lng: -67.8249 },
+  "Macapá": { lat: 0.0356, lng: -51.0705 },
+  "Boa Vista": { lat: 2.8235, lng: -60.6758 },
+  // Rondônia cities
+  "Ji-Paraná": { lat: -10.8778, lng: -61.9492 },
+  "Ariquemes": { lat: -9.9133, lng: -63.0392 },
+  "Vilhena": { lat: -12.7406, lng: -60.1461 },
+  "Cacoal": { lat: -11.4386, lng: -61.4472 },
+  "Rolim de Moura": { lat: -11.7281, lng: -61.7756 },
+  "Guajará-Mirim": { lat: -10.7833, lng: -65.3333 },
+  "Jaru": { lat: -10.4389, lng: -62.4681 },
+  "Pimenta Bueno": { lat: -11.6728, lng: -61.1939 },
+  "Ouro Preto do Oeste": { lat: -10.7208, lng: -62.2158 },
+  "Espigão do Oeste": { lat: -11.5244, lng: -60.8561 },
+  "Colorado do Oeste": { lat: -13.1181, lng: -60.5414 },
+  "Cerejeiras": { lat: -13.1878, lng: -60.8178 },
+  "Presidente Médici": { lat: -11.1736, lng: -61.9006 },
+  "Alvorada do Oeste": { lat: -11.3481, lng: -62.2036 },
+  "Alta Floresta do Oeste": { lat: -11.9319, lng: -61.9997 },
+  "Buritis": { lat: -10.2083, lng: -63.8319 },
+  "Machadinho do Oeste": { lat: -9.4247, lng: -62.0072 },
+  "Ministro Andreazza": { lat: -11.3894, lng: -61.5067 },
+  "Mirante da Serra": { lat: -11.5019, lng: -62.6756 },
+  "Nova Brasilândia do Oeste": { lat: -11.7333, lng: -62.3167 },
+  "Nova Mamoré": { lat: -10.4167, lng: -65.3333 },
+  "Pimenteiras do Oeste": { lat: -13.4833, lng: -61.4167 },
+  "São Francisco do Guaporé": { lat: -12.0500, lng: -63.5667 },
+  "São Miguel do Guaporé": { lat: -11.6944, lng: -62.9139 },
+  "Seringueiras": { lat: -11.7667, lng: -63.0333 },
+  "Theobroma": { lat: -10.2167, lng: -62.3667 },
+  "Urupá": { lat: -11.1333, lng: -62.3667 },
+  "Vale do Anari": { lat: -9.8667, lng: -62.1500 },
+  "Vale do Paraíso": { lat: -10.9833, lng: -62.2333 },
+  // Acre cities
+  "Cruzeiro do Sul": { lat: -7.6281, lng: -72.6703 },
+  "Sena Madureira": { lat: -9.0667, lng: -68.6667 },
+  "Tarauacá": { lat: -8.1667, lng: -70.7667 },
+  "Feijó": { lat: -8.1667, lng: -70.3500 },
+  // Amazonas cities
+  "Parintins": { lat: -2.6278, lng: -56.7358 },
+  "Itacoatiara": { lat: -3.1433, lng: -58.4442 },
+  "Coari": { lat: -4.0850, lng: -63.1408 },
+  "Tefé": { lat: -3.3667, lng: -64.7167 },
+  "Tabatinga": { lat: -4.2500, lng: -69.9333 },
+  "São Gabriel da Cachoeira": { lat: 0.1303, lng: -67.0878 },
+  "Humaitá": { lat: -7.5083, lng: -63.0167 },
+  // Pará cities
+  "Santarém": { lat: -2.4444, lng: -54.7083 },
+  "Marabá": { lat: -5.3686, lng: -49.1178 },
+  "Altamira": { lat: -3.2039, lng: -52.2067 },
+  "Castanhal": { lat: -1.2939, lng: -47.9228 },
+  "Parauapebas": { lat: -6.0686, lng: -49.9014 },
+  "Tucuruí": { lat: -3.7667, lng: -49.6667 },
+  "Abaetetuba": { lat: -1.7239, lng: -48.8789 },
+  "Cametá": { lat: -2.2444, lng: -49.4972 },
+  "Bragança": { lat: -1.0539, lng: -46.7658 },
+  // Mato Grosso cities
+  "Sinop": { lat: -11.8644, lng: -55.5044 },
+  "Rondonópolis": { lat: -16.4703, lng: -54.6383 },
+  "Várzea Grande": { lat: -15.6467, lng: -56.1322 },
+  "Tangará da Serra": { lat: -14.6228, lng: -57.4944 },
+  "Cáceres": { lat: -16.0722, lng: -57.6808 },
+  "Sorriso": { lat: -12.5444, lng: -55.7133 },
+  "Lucas do Rio Verde": { lat: -13.0583, lng: -55.9083 },
+  "Alta Floresta": { lat: -9.8756, lng: -56.0861 },
+  "Barra do Garças": { lat: -15.8903, lng: -52.2567 },
+  "Primavera do Leste": { lat: -15.5556, lng: -54.2994 },
+  // Tocantins cities
+  "Araguaína": { lat: -7.1919, lng: -48.2044 },
+  "Gurupi": { lat: -11.7297, lng: -49.0681 },
+  "Porto Nacional": { lat: -10.7072, lng: -48.4167 },
+  "Paraíso do Tocantins": { lat: -10.1667, lng: -48.8833 },
+  // Maranhão cities
+  "Imperatriz": { lat: -5.5258, lng: -47.4919 },
+  "Caxias": { lat: -4.8667, lng: -43.3500 },
+  "Codó": { lat: -4.4500, lng: -43.8833 },
+  "Timon": { lat: -5.0944, lng: -42.8361 },
+  "Açailândia": { lat: -4.9500, lng: -47.5000 },
+  // Piauí cities
+  "Parnaíba": { lat: -2.9050, lng: -41.7764 },
+  "Picos": { lat: -7.0778, lng: -41.4667 },
+  "Floriano": { lat: -6.7667, lng: -43.0167 },
+  // Ceará cities
+  "Juazeiro do Norte": { lat: -7.2133, lng: -39.3153 },
+  "Sobral": { lat: -3.6886, lng: -40.3483 },
+  "Caucaia": { lat: -3.7333, lng: -38.6500 },
+  "Maracanaú": { lat: -3.8667, lng: -38.6167 },
+  "Crato": { lat: -7.2333, lng: -39.4167 },
+  "Iguatu": { lat: -6.3594, lng: -39.2989 },
+  // Rio Grande do Norte cities
+  "Mossoró": { lat: -5.1878, lng: -37.3442 },
+  "Caicó": { lat: -6.4583, lng: -37.0972 },
+  // Paraíba cities
+  "Campina Grande": { lat: -7.2306, lng: -35.8811 },
+  "Patos": { lat: -7.0167, lng: -37.2833 },
+  "Santa Rita": { lat: -7.1167, lng: -34.9667 },
+  // Pernambuco cities
+  "Caruaru": { lat: -8.2833, lng: -35.9833 },
+  "Petrolina": { lat: -9.3978, lng: -40.4978 },
+  "Olinda": { lat: -8.0089, lng: -34.8553 },
+  "Paulista": { lat: -7.9333, lng: -34.8667 },
+  "Jaboatão dos Guararapes": { lat: -8.1133, lng: -35.0133 },
+  "Camaçari": { lat: -12.6997, lng: -38.3244 },
+  // Bahia cities
+  "Feira de Santana": { lat: -12.2664, lng: -38.9663 },
+  "Vitória da Conquista": { lat: -14.8619, lng: -40.8444 },
+  "Ilhéus": { lat: -14.7889, lng: -39.0481 },
+  "Juazeiro": { lat: -9.4167, lng: -40.5000 },
+  "Barreiras": { lat: -12.1500, lng: -44.9833 },
+  "Paulo Afonso": { lat: -9.4000, lng: -38.2167 },
+  "Teixeira de Freitas": { lat: -17.5333, lng: -39.7333 },
+  "Jequié": { lat: -13.8500, lng: -40.0833 },
+  "Lauro de Freitas": { lat: -12.8972, lng: -38.3297 },
+  // Sergipe cities
+  "Lagarto": { lat: -10.9167, lng: -37.6500 },
+  "Itabaiana": { lat: -10.6833, lng: -37.4167 },
+  // Alagoas cities
+  "Arapiraca": { lat: -9.7528, lng: -36.6611 },
+  "Palmeira dos Índios": { lat: -9.4083, lng: -36.6333 },
+  // Minas Gerais cities
+  "Contagem": { lat: -19.9317, lng: -44.0536 },
+  "Betim": { lat: -19.9678, lng: -44.1981 },
+  "Montes Claros": { lat: -16.7281, lng: -43.8614 },
+  "Uberaba": { lat: -19.7481, lng: -47.9319 },
+  "Governador Valadares": { lat: -18.8511, lng: -41.9494 },
+  "Ipatinga": { lat: -19.4681, lng: -42.5369 },
+  "Sete Lagoas": { lat: -19.4681, lng: -44.2469 },
+  "Divinópolis": { lat: -20.1381, lng: -44.8819 },
+  "Varginha": { lat: -21.5519, lng: -45.4297 },
+  "Patos de Minas": { lat: -18.5781, lng: -46.5181 },
+  "Poços de Caldas": { lat: -21.7869, lng: -46.5619 },
+  "Teófilo Otoni": { lat: -17.8581, lng: -41.5056 },
+  // São Paulo interior cities
+  "São José dos Campos": { lat: -23.1794, lng: -45.8869 },
+  "Osasco": { lat: -23.5322, lng: -46.7919 },
+  "Santo André": { lat: -23.6639, lng: -46.5383 },
+  "Mauá": { lat: -23.6681, lng: -46.4619 },
+  "Diadema": { lat: -23.6861, lng: -46.6219 },
+  "Bauru": { lat: -22.3147, lng: -49.0608 },
+  "Piracicaba": { lat: -22.7253, lng: -47.6492 },
+  "Franca": { lat: -20.5386, lng: -47.4008 },
+  "Limeira": { lat: -22.5647, lng: -47.4014 },
+  "São José do Rio Preto": { lat: -20.8197, lng: -49.3794 },
+  "Mogi das Cruzes": { lat: -23.5219, lng: -46.1853 },
+  "Taubaté": { lat: -23.0261, lng: -45.5556 },
+  "Jundiaí": { lat: -23.1864, lng: -46.8844 },
+  "Presidente Prudente": { lat: -22.1208, lng: -51.3883 },
+  "Araçatuba": { lat: -21.2086, lng: -50.4333 },
+  "Araraquara": { lat: -21.7942, lng: -48.1758 },
+  "Marília": { lat: -22.2136, lng: -49.9456 },
+  "Americana": { lat: -22.7386, lng: -47.3319 },
+  "Catanduva": { lat: -21.1375, lng: -48.9728 },
+  "Hortolândia": { lat: -22.8583, lng: -47.2203 },
+  "Sumaré": { lat: -22.8228, lng: -47.2664 },
+  "Indaiatuba": { lat: -23.0897, lng: -47.2181 },
+  "Itapevi": { lat: -23.5483, lng: -46.9339 },
+  "Cotia": { lat: -23.6033, lng: -46.9194 },
+  "Barueri": { lat: -23.5053, lng: -46.8761 },
+  "Carapicuíba": { lat: -23.5228, lng: -46.8353 },
+  "Taboão da Serra": { lat: -23.6089, lng: -46.7583 },
+  "Embu das Artes": { lat: -23.6481, lng: -46.8519 },
+  "Itaquaquecetuba": { lat: -23.4833, lng: -46.3486 },
+  "Suzano": { lat: -23.5428, lng: -46.3103 },
+  "Ferraz de Vasconcelos": { lat: -23.5408, lng: -46.3689 },
+  "Poá": { lat: -23.5258, lng: -46.3439 },
+  // Rio de Janeiro interior cities
+  "Nova Iguaçu": { lat: -22.7558, lng: -43.4511 },
+  "Duque de Caxias": { lat: -22.7853, lng: -43.3119 },
+  "São Gonçalo": { lat: -22.8267, lng: -43.0539 },
+  "Belford Roxo": { lat: -22.7639, lng: -43.3994 },
+  "Mesquita": { lat: -22.8058, lng: -43.4428 },
+  "Nilópolis": { lat: -22.8044, lng: -43.4228 },
+  "Petrópolis": { lat: -22.5050, lng: -43.1789 },
+  "Volta Redonda": { lat: -22.5231, lng: -44.1039 },
+  "Macaé": { lat: -22.3706, lng: -41.7869 },
+  "Campos dos Goytacazes": { lat: -21.7542, lng: -41.3242 },
+  "Angra dos Reis": { lat: -23.0067, lng: -44.3181 },
+  // Espírito Santo cities
+  "Serra": { lat: -20.1281, lng: -40.3069 },
+  "Vila Velha": { lat: -20.3297, lng: -40.2928 },
+  "Cariacica": { lat: -20.2631, lng: -40.4169 },
+  "Cachoeiro de Itapemirim": { lat: -20.8481, lng: -41.1131 },
+  "Linhares": { lat: -19.3939, lng: -40.0639 },
+  "Colatina": { lat: -19.5386, lng: -40.6308 },
+  // Paraná interior cities
+  "Foz do Iguaçu": { lat: -25.5478, lng: -54.5882 },
+  "Cascavel": { lat: -24.9558, lng: -53.4553 },
+  "Maringá": { lat: -23.4253, lng: -51.9386 },
+  "Ponta Grossa": { lat: -25.0947, lng: -50.1619 },
+  "Guarapuava": { lat: -25.3908, lng: -51.4578 },
+  "Apucarana": { lat: -23.5508, lng: -51.4614 },
+  "Paranaguá": { lat: -25.5197, lng: -48.5089 },
+  "Umuarama": { lat: -23.7658, lng: -53.3258 },
+  "Campo Mourão": { lat: -24.0458, lng: -52.3836 },
+  "Arapongas": { lat: -23.4158, lng: -51.4264 },
+  // Santa Catarina interior cities
+  "Blumenau": { lat: -26.9194, lng: -49.0661 },
+  "Chapecó": { lat: -27.1006, lng: -52.6153 },
+  "Itajaí": { lat: -26.9078, lng: -48.6619 },
+  "Criciúma": { lat: -28.6778, lng: -49.3694 },
+  "Lages": { lat: -27.8161, lng: -50.3261 },
+  "Jaraguá do Sul": { lat: -26.4856, lng: -49.0694 },
+  "Balneário Camboriú": { lat: -26.9906, lng: -48.6353 },
+  "Palhoça": { lat: -27.6453, lng: -48.6697 },
+  "São José": { lat: -27.5942, lng: -48.6353 },
+  // Rio Grande do Sul interior cities
+  "Caxias do Sul": { lat: -29.1678, lng: -51.1794 },
+  "Pelotas": { lat: -31.7719, lng: -52.3422 },
+  "Canoas": { lat: -29.9178, lng: -51.1836 },
+  "Santa Maria": { lat: -29.6842, lng: -53.8069 },
+  "Gravataí": { lat: -29.9439, lng: -50.9919 },
+  "Viamão": { lat: -30.0811, lng: -51.0228 },
+  "Novo Hamburgo": { lat: -29.6781, lng: -51.1303 },
+  "São Leopoldo": { lat: -29.7597, lng: -51.1478 },
+  "Rio Grande": { lat: -32.0350, lng: -52.0986 },
+  "Alvorada": { lat: -29.9922, lng: -51.0808 },
+  "Passo Fundo": { lat: -28.2619, lng: -52.4069 },
+  "Sapucaia do Sul": { lat: -29.8281, lng: -51.1503 },
+  "Uruguaiana": { lat: -29.7547, lng: -57.0883 },
+  "Bagé": { lat: -31.3289, lng: -54.1014 },
+  // Goiás interior cities
+  "Aparecida de Goiânia": { lat: -16.8228, lng: -49.2464 },
+  "Anápolis": { lat: -16.3281, lng: -48.9536 },
+  "Rio Verde": { lat: -17.7981, lng: -50.9278 },
+  "Luziânia": { lat: -16.2522, lng: -47.9508 },
+  "Águas Lindas de Goiás": { lat: -15.7453, lng: -48.2808 },
+  "Valparaíso de Goiás": { lat: -16.0703, lng: -47.9972 },
+  "Trindade": { lat: -16.6481, lng: -49.4897 },
+  "Formosa": { lat: -15.5358, lng: -47.3353 },
+  "Novo Gama": { lat: -16.0561, lng: -48.0347 },
+  "Itumbiara": { lat: -18.4181, lng: -49.2153 },
+  // Mato Grosso do Sul cities
+  "Dourados": { lat: -22.2231, lng: -54.8058 },
+  "Três Lagoas": { lat: -20.7519, lng: -51.6781 },
+  "Corumbá": { lat: -19.0089, lng: -57.6531 },
+  "Grande Dourados": { lat: -22.2231, lng: -54.8058 },
+  "Ponta Porã": { lat: -22.5358, lng: -55.7258 },
+  "Naviraí": { lat: -23.0631, lng: -54.1928 },
+  // Major Airports
+  "GRU - Aeroporto de Guarulhos": { lat: -23.4356, lng: -46.4731 },
+  "GIG - Aeroporto do Galeão": { lat: -22.8099, lng: -43.2505 },
+  "CGH - Aeroporto de Congonhas": { lat: -23.6261, lng: -46.6564 },
+  "BSB - Aeroporto de Brasília": { lat: -15.8711, lng: -47.9186 },
+  "CNF - Aeroporto de Confins": { lat: -19.6244, lng: -43.9719 },
+  "SDU - Aeroporto Santos Dumont": { lat: -22.9104, lng: -43.1631 },
+  "SSA - Aeroporto de Salvador": { lat: -12.9086, lng: -38.3225 },
+  "FOR - Aeroporto de Fortaleza": { lat: -3.7761, lng: -38.5326 },
+  "REC - Aeroporto do Recife": { lat: -8.1264, lng: -34.9236 },
+  "CWB - Aeroporto de Curitiba": { lat: -25.5285, lng: -49.1758 },
+  "POA - Aeroporto de Porto Alegre": { lat: -29.9939, lng: -51.1711 },
+  "FLN - Aeroporto de Florianópolis": { lat: -27.6706, lng: -48.5525 },
+  "VCP - Aeroporto de Viracopos": { lat: -23.0074, lng: -47.1345 },
+  "MAO - Aeroporto de Manaus": { lat: -3.0386, lng: -60.0497 },
+  "NAT - Aeroporto de Natal": { lat: -5.9111, lng: -35.2478 },
+};
+
+// Vehicle type - matches database schema
+interface Vehicle {
+  id: number;
+  hostId: number;
+  brand: string;
+  model: string;
+  year: number;
+  color: string | null;
+  licensePlate: string;
+  category: string;
+  transmission: string | null;
+  fuelType: string | null;
+  seats: number | null;
+  doors: number | null;
+  dailyPrice: string;
+  dailyKmLimit: number | null;
+  extraKmPrice: string | null;
+  mainImageUrl: string | null;
+  pickupAddress: string;
+  pickupCity: string;
+  pickupState: string;
+  pickupLatitude: string | null;
+  pickupLongitude: string | null;
+  status: string;
+  instantBooking: boolean;
+  totalTrips: number;
+  averageRating: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Categories for filtering
+const categories = [
+  { id: "all", label: "Todos", icon: Car },
+  { id: "hatch", label: "Hatch", icon: Car },
+  { id: "popular", label: "Econômicos", icon: Car },
+  { id: "sedan", label: "Sedans", icon: Car },
+  { id: "suv", label: "SUVs", icon: Car },
+  { id: "luxury", label: "Luxo", icon: Car },
+  { id: "electric", label: "Elétricos", icon: Zap },
+  { id: "sport", label: "Esportivos", icon: Car },
+];
+
+// Price presets for quick filtering
+const pricePresets = [
+  { label: "Até R$ 150", range: [0, 150] },
+  { label: "R$ 150 - 300", range: [150, 300] },
+  { label: "R$ 300 - 500", range: [300, 500] },
+  { label: "R$ 500+", range: [500, 1500] },
+];
+
+// Transmission options
+const transmissionOptions = [
+  { id: "automatic", label: "Automático", icon: "⚙️" },
+  { id: "manual", label: "Manual", icon: "🔧" }
+];
+
+// Fuel type options
+const fuelTypeOptions = [
+  { id: "gasoline", label: "Gasolina", icon: "⛽" },
+  { id: "flex", label: "Flex", icon: "🔄" },
+  { id: "electric", label: "Elétrico", icon: "⚡" },
+  { id: "hybrid", label: "Híbrido", icon: "🌿" },
+  { id: "diesel", label: "Diesel", icon: "🛢️" }
+];
+
+// Seats options
+const seatsOptions = [
+  { id: 2, label: "2 lugares" },
+  { id: 4, label: "4 lugares" },
+  { id: 5, label: "5 lugares" },
+  { id: 7, label: "7+ lugares" }
+];
+
+// Helper to get feature display text
+const getFeatureText = (vehicle: Vehicle) => {
+  const transmission = vehicle.transmission === "automatic" ? "Automático" : "Manual";
+  const seats = `${vehicle.seats || 5} lugares`;
+  const fuel = fuelTypeOptions.find(f => f.id === vehicle.fuelType)?.label || vehicle.fuelType || "Flex";
+  return [transmission, seats, fuel];
+};
+
+// Default placeholder image
+const defaultCarImage = "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&auto=format&fit=crop&q=60";
+
+export default function Cars() {
+  const [, navigate] = useLocation();
+  const searchString = useSearch();
+  const params = new URLSearchParams(searchString);
+  
+  // Get search parameters from URL
+  const searchCityRaw = decodeURIComponent(params.get("city") || "");
+  // Normalize city name: "Porto Velho - RO" → "Porto Velho"
+  const searchCity = searchCityRaw.includes(" - ") ? searchCityRaw.split(" - ")[0].trim() : searchCityRaw;
+  const searchStartDate = params.get("startDate") || params.get("start") || "";
+  const searchEndDate = params.get("endDate") || params.get("end") || "";
+  
+
+  
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [priceRange, setPriceRange] = useState([0, 1500]);
+  const [instantBookingOnly, setInstantBookingOnly] = useState(false);
+  const [hoveredVehicleId, setHoveredVehicleId] = useState<number | null>(null);
+  const [selectedPinCity, setSelectedPinCity] = useState<string | null>(null);
+  const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
+  const [mapBounds, setMapBounds] = useState<google.maps.LatLngBounds | null>(null);
+  const [showMapOnMobile, setShowMapOnMobile] = useState(false);
+  const [showPriceSlider, setShowPriceSlider] = useState(false);
+  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
+  const [showCitySearch, setShowCitySearch] = useState(false);
+
+  // Auto-open city search modal when there's no city in the URL
+  useEffect(() => {
+    if (!searchCity) {
+      setShowCitySearch(true);
+    }
+  }, [searchCity]);
+  
+  // Advanced filters state
+  const [selectedTransmission, setSelectedTransmission] = useState<string[]>([]);
+  const [selectedFuelTypes, setSelectedFuelTypes] = useState<string[]>([]);
+  const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
+
+  // CARS ONLY — vehicleType fixo em "car" — motos nunca aparecem aqui
+  const { data: dbVehicles, isLoading } = trpc.vehicle.search.useQuery({
+    city: searchCity,
+    startDate: searchStartDate || undefined,
+    endDate: searchEndDate || undefined,
+    category: selectedCategory !== "all" ? selectedCategory : undefined,
+    minPrice: priceRange[0] > 0 ? priceRange[0] : undefined,
+    maxPrice: priceRange[1],
+    transmission: selectedTransmission.length === 1 ? selectedTransmission[0] : undefined,
+    fuelType: selectedFuelTypes.length === 1 ? selectedFuelTypes[0] : undefined,
+    minSeats: selectedSeats.length > 0 ? Math.min(...selectedSeats) : undefined,
+    vehicleType: "car",
+  }, {
+    staleTime: 2 * 60 * 1000, // 2 minutos de cache — evita re-fetch ao navegar entre páginas
+    gcTime: 5 * 60 * 1000,    // mantém no cache por 5 minutos
+  });
+
+  // Get center coordinates for the searched city
+  // Priority: (1) exact match in hardcoded list, (2) partial match, (3) first vehicle's coords, (4) São Paulo fallback
+  const centerCoords = useMemo(() => {
+    if (cityCoordinates[searchCity]) return cityCoordinates[searchCity];
+    // Try to find a key that starts with the city name
+    const matchKey = Object.keys(cityCoordinates).find(k => k.startsWith(searchCity));
+    if (matchKey) return cityCoordinates[matchKey];
+    // Use coordinates from the first vehicle that has them
+    if (dbVehicles) {
+      const vehicleWithCoords = dbVehicles.find(v => v.pickupLatitude && v.pickupLongitude);
+      if (vehicleWithCoords) {
+        return { lat: parseFloat(vehicleWithCoords.pickupLatitude!), lng: parseFloat(vehicleWithCoords.pickupLongitude!) };
+      }
+    }
+    return cityCoordinates["São Paulo"];
+  }, [searchCity, dbVehicles]);
+
+  // Calculate min and max prices from vehicles
+  const priceStats = useMemo(() => {
+    if (!dbVehicles || dbVehicles.length === 0) {
+      return { min: 0, max: 1500, avg: 200 };
+    }
+    const prices = dbVehicles.map(v => parseFloat(v.dailyPrice));
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices),
+      avg: Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
+    };
+  }, [dbVehicles]);
+
+  // Count active advanced filters
+  const activeAdvancedFiltersCount = useMemo(() => {
+    return selectedTransmission.length + selectedFuelTypes.length + selectedSeats.length;
+  }, [selectedTransmission, selectedFuelTypes, selectedSeats]);
+
+  // Filter vehicles based on additional criteria
+  const filteredVehicles = useMemo(() => {
+    if (!dbVehicles) return [];
+    
+    return dbVehicles.filter(vehicle => {
+      // Instant booking filter
+      if (instantBookingOnly && !vehicle.instantBooking) return false;
+      // Pin selection filter
+      if (selectedPinCity && vehicle.pickupCity !== selectedPinCity) return false;
+      // Multiple transmission filter
+      if (selectedTransmission.length > 1 && vehicle.transmission && !selectedTransmission.includes(vehicle.transmission)) return false;
+      // Multiple fuel type filter
+      if (selectedFuelTypes.length > 1 && vehicle.fuelType && !selectedFuelTypes.includes(vehicle.fuelType)) return false;
+      // Seats filter
+      if (selectedSeats.length > 0) {
+        const vehicleSeats = vehicle.seats || 5;
+        const matchesSeats = selectedSeats.some(s => {
+          if (s === 7) return vehicleSeats >= 7;
+          return vehicleSeats === s;
+        });
+        if (!matchesSeats) return false;
+      }
+      // Map bounds filter (when map is moved)
+      // Use hardcoded coords first, then vehicle's actual GPS coordinates
+      const vehicleCoords = cityCoordinates[vehicle.pickupCity] || 
+        (vehicle.pickupLatitude && vehicle.pickupLongitude 
+          ? { lat: parseFloat(vehicle.pickupLatitude), lng: parseFloat(vehicle.pickupLongitude) } 
+          : null);
+      if (mapBounds && vehicleCoords) {
+        if (!mapBounds.contains({ lat: vehicleCoords.lat, lng: vehicleCoords.lng })) return false;
+      }
+      return true;
+    });
+  }, [dbVehicles, instantBookingOnly, selectedPinCity, mapBounds, selectedTransmission, selectedFuelTypes, selectedSeats]);
+
+  // Group vehicles by city for clustering
+  const vehiclesByCity = useMemo(() => {
+    const groups: Record<string, Vehicle[]> = {};
+    filteredVehicles.forEach(vehicle => {
+      if (!groups[vehicle.pickupCity]) {
+        groups[vehicle.pickupCity] = [];
+      }
+      groups[vehicle.pickupCity].push(vehicle);
+    });
+    return groups;
+  }, [filteredVehicles]);
+
+  // Handle map ready
+  const handleMapReady = useCallback((map: google.maps.Map) => {
+    setMapInstance(map);
+    
+    // Center on searched city
+    map.setCenter(centerCoords);
+    map.setZoom(11);
+
+    // Listen for bounds changes (when user moves the map)
+    map.addListener("idle", () => {
+      const bounds = map.getBounds();
+      if (bounds) {
+        setMapBounds(bounds);
+      }
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // intentionally empty: map is only mounted once
+
+  // Re-center map whenever the searched city changes
+  useEffect(() => {
+    if (!mapInstance) return;
+    mapInstance.setCenter(centerCoords);
+    mapInstance.setZoom(11);
+  }, [mapInstance, centerCoords]);
+
+  // Create markers for each city with vehicles
+  useEffect(() => {
+    if (!mapInstance) return;
+
+    // Clear existing markers
+    const markers: google.maps.marker.AdvancedMarkerElement[] = [];
+
+    Object.entries(vehiclesByCity).forEach(([city, vehicles]) => {
+      // Try hardcoded coords first, then fall back to vehicle's actual GPS coordinates
+      let coords = cityCoordinates[city];
+      if (!coords) {
+        const vehicleWithCoords = vehicles.find(v => v.pickupLatitude && v.pickupLongitude);
+        if (vehicleWithCoords) {
+          coords = { lat: parseFloat(vehicleWithCoords.pickupLatitude!), lng: parseFloat(vehicleWithCoords.pickupLongitude!) };
+        }
+      }
+      if (!coords) return;
+
+      // Find min price for this city (within price range)
+      const minPrice = Math.min(...vehicles.map(v => parseFloat(v.dailyPrice)));
+      const isSelected = selectedPinCity === city;
+      const hasHoveredVehicle = vehicles.some(v => v.id === hoveredVehicleId);
+
+      // Create custom marker element
+      const markerContent = document.createElement("div");
+      markerContent.className = `
+        px-3 py-2 rounded-full font-semibold text-sm cursor-pointer transition-all duration-200
+        ${isSelected || hasHoveredVehicle 
+          ? "bg-black text-white scale-110 shadow-lg" 
+          : "bg-white text-black shadow-md hover:scale-105"
+        }
+      `;
+      markerContent.innerHTML = `R$ ${Math.round(minPrice)}`;
+
+      const marker = new google.maps.marker.AdvancedMarkerElement({
+        map: mapInstance,
+        position: coords,
+        content: markerContent,
+        title: city,
+      });
+
+      marker.addListener("click", () => {
+        setSelectedPinCity(selectedPinCity === city ? null : city);
+      });
+
+      markers.push(marker);
+    });
+
+    return () => {
+      markers.forEach(marker => {
+        marker.map = null;
+      });
+    };
+  }, [mapInstance, vehiclesByCity, selectedPinCity, hoveredVehicleId]);
+
+  // Format dates for display
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return "";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("pt-BR", { day: "numeric", month: "short" });
+  };
+
+  // Toggle transmission filter
+  const toggleTransmission = (id: string) => {
+    setSelectedTransmission(prev => 
+      prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]
+    );
+  };
+
+  // Toggle fuel type filter
+  const toggleFuelType = (id: string) => {
+    setSelectedFuelTypes(prev => 
+      prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+    );
+  };
+
+  // Toggle seats filter
+  const toggleSeats = (seats: number) => {
+    setSelectedSeats(prev => 
+      prev.includes(seats) ? prev.filter(s => s !== seats) : [...prev, seats]
+    );
+  };
+
+  // Clear all advanced filters
+  const clearAdvancedFilters = () => {
+    setSelectedTransmission([]);
+    setSelectedFuelTypes([]);
+    setSelectedSeats([]);
+    setPriceRange([0, 1500]);
+    setSelectedCategory("all");
+    setInstantBookingOnly(false);
+    setSelectedPinCity(null);
+  };
+
+  return (
+    <div className="h-screen bg-[#0A0F1C] flex flex-col overflow-hidden">
+      <Header />
+      
+      {/* Spacer for fixed header — keeps content below the fixed nav */}
+      <div className="shrink-0 h-14 sm:h-16 lg:h-20" />
+      
+      {/* Search Bar */}
+      <div className="shrink-0 bg-[#0B1426] border-b border-white/10 py-4 px-4">
+        <div className="container flex items-center justify-between gap-4">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => navigate("/")}
+            className="text-gray-400 hover:text-white"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          
+          <div
+            className="flex-1 flex items-center gap-4 bg-white/5 rounded-full px-4 py-2 cursor-pointer hover:bg-white/10 transition-colors"
+            onClick={() => setShowCitySearch(true)}
+          >
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-cyan-400" />
+              <span className={searchCity ? "text-white font-medium" : "text-gray-400"}>
+                {searchCity || "Onde você quer ir?"}
+              </span>
+            </div>
+            {searchStartDate && searchEndDate && (
+              <>
+                <div className="w-px h-4 bg-white/20" />
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4 text-cyan-400" />
+                  <span className="text-gray-300 text-sm">
+                    {formatDate(searchStartDate)} - {formatDate(searchEndDate)}
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+          
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowFilters(!showFilters)}
+            className="border-white/20 text-white hover:bg-white/10"
+          >
+            <SlidersHorizontal className="w-4 h-4 mr-2" />
+            Filtros
+          </Button>
+        </div>
+      </div>
+      
+      {/* Category Tabs */}
+      <div className="shrink-0 bg-[#0B1426] border-b border-white/10 py-3 px-4 overflow-x-auto">
+        <div className="container flex items-center gap-2">
+          {categories.map(cat => (
+            <Button
+              key={cat.id}
+              variant={selectedCategory === cat.id ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setSelectedCategory(cat.id)}
+              className={selectedCategory === cat.id 
+                ? "bg-cyan-500 text-black hover:bg-cyan-400" 
+                : "text-gray-400 hover:text-white hover:bg-white/10"
+              }
+            >
+              <cat.icon className="w-4 h-4 mr-2" />
+              {cat.label}
+            </Button>
+          ))}
+          
+          {/* Price Filter Button */}
+          <Button
+            variant={showPriceSlider ? "default" : "ghost"}
+            size="sm"
+            onClick={() => setShowPriceSlider(!showPriceSlider)}
+            className={showPriceSlider 
+              ? "bg-cyan-500 text-black hover:bg-cyan-400" 
+              : "text-gray-400 hover:text-white hover:bg-white/10"
+            }
+          >
+            <DollarSign className="w-4 h-4 mr-2" />
+            Preço
+          </Button>
+          
+          {/* Advanced Filters Button */}
+          <Button
+            variant={showAdvancedFilters ? "default" : "ghost"}
+            size="sm"
+            onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+            className={showAdvancedFilters 
+              ? "bg-cyan-500 text-black hover:bg-cyan-400" 
+              : "text-gray-400 hover:text-white hover:bg-white/10"
+            }
+          >
+            <Settings2 className="w-4 h-4 mr-2" />
+            Mais Filtros
+            {activeAdvancedFiltersCount > 0 && (
+              <Badge className="ml-2 bg-white text-black text-xs px-1.5 py-0.5">
+                {activeAdvancedFiltersCount}
+              </Badge>
+            )}
+          </Button>
+        </div>
+      </div>
+      
+      {/* Price Slider Panel */}
+      <AnimatePresence>
+        {showPriceSlider && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-[#0B1426] border-b border-white/10 overflow-hidden"
+          >
+            <div className="container py-4 px-4">
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+                <div className="flex-1 w-full">
+                  <div className="flex justify-between mb-2">
+                    <span className="text-sm text-gray-400">Faixa de preço</span>
+                    <span className="text-sm text-white font-medium">
+                      R$ {priceRange[0]} - R$ {priceRange[1]}
+                    </span>
+                  </div>
+                  <Slider
+                    value={priceRange}
+                    onValueChange={setPriceRange}
+                    min={0}
+                    max={1500}
+                    step={10}
+                    className="w-full"
+                  />
+                </div>
+                
+                {/* Quick presets */}
+                <div className="flex gap-2 flex-wrap">
+                  {pricePresets.map(preset => (
+                    <Button
+                      key={preset.label}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setPriceRange(preset.range)}
+                      className={`text-xs ${
+                        priceRange[0] === preset.range[0] && priceRange[1] === preset.range[1]
+                          ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50"
+                          : "text-gray-400 hover:text-white hover:bg-white/10"
+                      }`}
+                    >
+                      {preset.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Advanced Filters Panel */}
+      <AnimatePresence>
+        {showAdvancedFilters && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-[#0B1426] border-b border-white/10 overflow-hidden"
+          >
+            <div className="container py-4 px-4">
+              <div className="flex flex-col gap-6">
+                {/* Transmission */}
+                <div>
+                  <h4 className="text-sm font-medium text-white mb-3 flex items-center gap-2">
+                    <Settings2 className="w-4 h-4 text-cyan-400" />
+                    Tipo de Câmbio
+                  </h4>
+                  <div className="flex gap-2 flex-wrap">
+                    {transmissionOptions.map(option => (
+                      <Button
+                        key={option.id}
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleTransmission(option.id)}
+                        className={`${
+                          selectedTransmission.includes(option.id)
+                            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50"
+                            : "text-gray-400 hover:text-white hover:bg-white/10 border border-white/10"
+                        }`}
+                      >
+                        <span className="mr-2">{option.icon}</span>
+                        {option.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Fuel Type */}
+                <div>
+                  <h4 className="text-sm font-medium text-white mb-3 flex items-center gap-2">
+                    <Fuel className="w-4 h-4 text-cyan-400" />
+                    Tipo de Combustível
+                  </h4>
+                  <div className="flex gap-2 flex-wrap">
+                    {fuelTypeOptions.map(option => (
+                      <Button
+                        key={option.id}
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleFuelType(option.id)}
+                        className={`${
+                          selectedFuelTypes.includes(option.id)
+                            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50"
+                            : "text-gray-400 hover:text-white hover:bg-white/10 border border-white/10"
+                        }`}
+                      >
+                        <span className="mr-2">{option.icon}</span>
+                        {option.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Seats */}
+                <div>
+                  <h4 className="text-sm font-medium text-white mb-3 flex items-center gap-2">
+                    <Users className="w-4 h-4 text-cyan-400" />
+                    Número de Assentos
+                  </h4>
+                  <div className="flex gap-2 flex-wrap">
+                    {seatsOptions.map(option => (
+                      <Button
+                        key={option.id}
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleSeats(option.id)}
+                        className={`${
+                          selectedSeats.includes(option.id)
+                            ? "bg-cyan-500/20 text-cyan-400 border border-cyan-500/50"
+                            : "text-gray-400 hover:text-white hover:bg-white/10 border border-white/10"
+                        }`}
+                      >
+                        {option.label}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Clear Filters */}
+                {activeAdvancedFiltersCount > 0 && (
+                  <div className="flex justify-end">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={clearAdvancedFilters}
+                      className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                    >
+                      <X className="w-4 h-4 mr-2" />
+                      Limpar Filtros ({activeAdvancedFiltersCount})
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Mobile View Toggle */}
+      <div className="shrink-0 lg:hidden bg-[#0B1426] border-b border-white/10 py-2 px-4">
+        <div className="container flex justify-center gap-2">
+          <Button
+            variant={!showMapOnMobile ? "default" : "ghost"}
+            size="sm"
+            onClick={() => setShowMapOnMobile(false)}
+            className={!showMapOnMobile ? "bg-cyan-500 text-black" : "text-gray-400"}
+          >
+            <Grid className="w-4 h-4 mr-2" />
+            Lista
+          </Button>
+          <Button
+            variant={showMapOnMobile ? "default" : "ghost"}
+            size="sm"
+            onClick={() => setShowMapOnMobile(true)}
+            className={showMapOnMobile ? "bg-cyan-500 text-black" : "text-gray-400"}
+          >
+            <MapIcon className="w-4 h-4 mr-2" />
+            Mapa
+          </Button>
+        </div>
+      </div>
+      
+      {/* Main Content — split layout: list left + map right */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Vehicle List — scrollable */}
+        <div className={`w-full lg:w-[45%] xl:w-2/5 overflow-y-auto ${showMapOnMobile ? "hidden lg:block" : ""}`}>
+          <div className="p-4">
+            {/* Results Count */}
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-gray-400">
+                {isLoading ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Buscando veículos...
+                  </span>
+                ) : (
+                  <>
+                    <span className="text-white font-semibold">{filteredVehicles.length}</span> carros encontrados
+                    {selectedPinCity && (
+                      <span className="ml-2">
+                        em <span className="text-cyan-400">{selectedPinCity}</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setSelectedPinCity(null)}
+                          className="ml-1 p-1 h-auto text-gray-400 hover:text-white"
+                        >
+                          <X className="w-3 h-3" />
+                        </Button>
+                      </span>
+                    )}
+                  </>
+                )}
+              </p>
+              
+              {/* Instant Booking Filter */}
+              <div 
+                className="flex items-center gap-2 cursor-pointer"
+                onClick={() => setInstantBookingOnly(!instantBookingOnly)}
+              >
+                <Checkbox 
+                  checked={instantBookingOnly}
+                  className="border-white/30 data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500"
+                />
+                <span className="text-sm text-gray-400 flex items-center gap-1">
+                  <Zap className="w-3 h-3 text-yellow-400" />
+                  Reserva Instantânea
+                </span>
+              </div>
+            </div>
+            
+            {/* Privacy Notice */}
+            <div className="bg-cyan-500/10 border border-cyan-500/20 rounded-lg p-3 mb-4">
+              <p className="text-xs text-cyan-300">
+                <MapPin className="w-3 h-3 inline mr-1" />
+                Para sua segurança, localizações exatas são compartilhadas apenas após a confirmação da reserva.
+              </p>
+            </div>
+            
+            {/* City Search Modal */}
+            {showCitySearch && (
+              <div className="fixed inset-0 z-50 bg-[#0A0F1C]/95 backdrop-blur-sm flex flex-col">
+                <div className="flex items-center gap-3 px-4 py-4 border-b border-white/10">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setShowCitySearch(false)}
+                    className="text-gray-400 hover:text-white"
+                  >
+                    <X className="w-5 h-5" />
+                  </Button>
+                  <h2 className="text-white font-semibold text-lg">Para onde você vai?</h2>
+                </div>
+                <div className="flex-1 overflow-y-auto px-4 py-6">
+                  <CityAutocomplete
+                    value=""
+                    onChange={(cityName) => {
+                      const currentParams = new URLSearchParams(searchString);
+                      currentParams.set("city", cityName);
+                      navigate(`/cars?${currentParams.toString()}`);
+                      setShowCitySearch(false);
+                    }}
+                    placeholder="Digite o nome da cidade..."
+                    className="w-full"
+                  />
+                  <p className="text-gray-500 text-sm mt-4 text-center">
+                    Digite pelo menos 2 letras para ver sugestões
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Vehicle Cards */}
+            {!searchCity ? (
+              <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+                <div className="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4">
+                  <MapPin className="w-8 h-8 text-cyan-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">Para onde você vai?</h3>
+                <p className="text-gray-400 mb-6 max-w-xs">
+                  Toque para pesquisar uma cidade e encontrar carros disponíveis.
+                </p>
+                <Button
+                  onClick={() => setShowCitySearch(true)}
+                  className="bg-cyan-500 hover:bg-cyan-600 text-black font-semibold px-8"
+                >
+                  <MapPin className="w-4 h-4 mr-2" />
+                  Buscar cidade
+                </Button>
+              </div>
+            ) : (
+              <VehicleGrid vehicles={filteredVehicles} isLoading={isLoading} />
+            )}
+          </div>
+        </div>
+        
+        {/* Map — sticky right panel, fills remaining height */}
+        <div className={`hidden lg:flex-1 lg:block lg:relative ${showMapOnMobile ? "block" : ""}`}>
+          <MapView 
+            onMapReady={handleMapReady}
+            className="absolute inset-0 w-full h-full"
+          />
+          
+          {/* Map Price Slider Overlay */}
+          <div className="absolute top-4 left-4 right-4 bg-black/80 backdrop-blur-sm rounded-lg p-4 z-10">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-300">Filtrar por preço</span>
+              <span className="text-sm text-white font-medium">
+                R$ {priceRange[0]} - R$ {priceRange[1]}
+              </span>
+            </div>
+            <Slider
+              value={priceRange}
+              onValueChange={setPriceRange}
+              min={0}
+              max={1500}
+              step={10}
+              className="w-full"
+            />
+          </div>
+          
+          {/* Selected Pin Info */}
+          {selectedPinCity && (
+            <div className="absolute bottom-4 left-4 right-4 bg-black/80 backdrop-blur-sm rounded-lg p-4 z-10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-white font-medium">{selectedPinCity}</p>
+                  <p className="text-gray-400 text-sm">
+                    {vehiclesByCity[selectedPinCity]?.length || 0} carros disponíveis
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelectedPinCity(null)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

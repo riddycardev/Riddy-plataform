@@ -1,0 +1,160 @@
+{
+  "query": "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vehicles' ORDER BY ORDINAL_POSITION;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'vehicles' ORDER BY ORDINAL_POSITION;",
+  "rows": [
+    {
+      "COLUMN_NAME": "id"
+    },
+    {
+      "COLUMN_NAME": "hostId"
+    },
+    {
+      "COLUMN_NAME": "brand"
+    },
+    {
+      "COLUMN_NAME": "model"
+    },
+    {
+      "COLUMN_NAME": "year"
+    },
+    {
+      "COLUMN_NAME": "color"
+    },
+    {
+      "COLUMN_NAME": "licensePlate"
+    },
+    {
+      "COLUMN_NAME": "renavam"
+    },
+    {
+      "COLUMN_NAME": "chassi"
+    },
+    {
+      "COLUMN_NAME": "vehicleType"
+    },
+    {
+      "COLUMN_NAME": "category"
+    },
+    {
+      "COLUMN_NAME": "transmission"
+    },
+    {
+      "COLUMN_NAME": "fuelType"
+    },
+    {
+      "COLUMN_NAME": "seats"
+    },
+    {
+      "COLUMN_NAME": "doors"
+    },
+    {
+      "COLUMN_NAME": "trunkCapacity"
+    },
+    {
+      "COLUMN_NAME": "engineSize"
+    },
+    {
+      "COLUMN_NAME": "features"
+    },
+    {
+      "COLUMN_NAME": "dailyPrice"
+    },
+    {
+      "COLUMN_NAME": "weeklyDiscount"
+    },
+    {
+      "COLUMN_NAME": "monthlyDiscount"
+    },
+    {
+      "COLUMN_NAME": "dailyKmLimit"
+    },
+    {
+      "COLUMN_NAME": "extraKmPrice"
+    },
+    {
+      "COLUMN_NAME": "pickupAddress"
+    },
+    {
+      "COLUMN_NAME": "pickupCity"
+    },
+    {
+      "COLUMN_NAME": "pickupState"
+    },
+    {
+      "COLUMN_NAME": "pickupLatitude"
+    },
+    {
+      "COLUMN_NAME": "pickupLongitude"
+    },
+    {
+      "COLUMN_NAME": "deliveryAvailable"
+    },
+    {
+      "COLUMN_NAME": "deliveryRadius"
+    },
+    {
+      "COLUMN_NAME": "deliveryFee"
+    },
+    {
+      "COLUMN_NAME": "minRentalDays"
+    },
+    {
+      "COLUMN_NAME": "maxRentalDays"
+    },
+    {
+      "COLUMN_NAME": "instantBooking"
+    },
+    {
+      "COLUMN_NAME": "smokingAllowed"
+    },
+    {
+      "COLUMN_NAME": "petsAllowed"
+    },
+    {
+      "COLUMN_NAME": "status"
+    },
+    {
+      "COLUMN_NAME": "isVerified"
+    },
+    {
+      "COLUMN_NAME": "totalTrips"
+    },
+    {
+      "COLUMN_NAME": "averageRating"
+    },
+    {
+      "COLUMN_NAME": "totalEarnings"
+    },
+    {
+      "COLUMN_NAME": "mainImageUrl"
+    },
+    {
+      "COLUMN_NAME": "createdAt"
+    },
+    {
+      "COLUMN_NAME": "updatedAt"
+    },
+    {
+      "COLUMN_NAME": "crlvUrl"
+    },
+    {
+      "COLUMN_NAME": "crlvFileKey"
+    },
+    {
+      "COLUMN_NAME": "crlvValidated"
+    },
+    {
+      "COLUMN_NAME": "crlvOwnerName"
+    },
+    {
+      "COLUMN_NAME": "insuranceUrl"
+    },
+    {
+      "COLUMN_NAME": "insuranceFileKey"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\nid\nhostId\nbrand\nmodel\nyear\ncolor\nlicensePlate\nrenavam\nchassi\nvehicleType\ncategory\ntransmission\nfuelType\nseats\ndoors\ntrunkCapacity\nengineSize\nfeatures\ndailyPrice\nweeklyDiscount\nmonthlyDiscount\ndailyKmLimit\nextraKmPrice\npickupAddress\npickupCity\npickupState\npickupLatitude\npickupLongitude\ndeliveryAvailable\ndeliveryRadius\ndeliveryFee\nminRentalDays\nmaxRentalDays\ninstantBooking\nsmokingAllowed\npetsAllowed\nstatus\nisVerified\ntotalTrips\naverageRating\ntotalEarnings\nmainImageUrl\ncreatedAt\nupdatedAt\ncrlvUrl\ncrlvFileKey\ncrlvValidated\ncrlvOwnerName\ninsuranceUrl\ninsuranceFileKey\n",
+  "stderr": "",
+  "execution_time_ms": 59
+}

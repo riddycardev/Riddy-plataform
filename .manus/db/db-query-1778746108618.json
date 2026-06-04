@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, renterId, contractOtpCode, contractOtpChannel, contractOtpExpiresAt, contractOtpAttempts, contractOtpVerifiedAt, renterPhone FROM bookings WHERE contractOtpChannel = 'sms' ORDER BY updatedAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, renterId, contractOtpCode, contractOtpChannel, contractOtpExpiresAt, contractOtpAttempts, contractOtpVerifiedAt, renterPhone FROM bookings WHERE contractOtpChannel = 'sms' ORDER BY updatedAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "1770019",
+      "renterId": "300013",
+      "contractOtpCode": "twilio-verify",
+      "contractOtpChannel": "sms",
+      "contractOtpExpiresAt": "2026-05-14 08:16:49",
+      "contractOtpAttempts": "0",
+      "contractOtpVerifiedAt": "NULL",
+      "renterPhone": "67992914788"
+    },
+    {
+      "id": "1770012",
+      "renterId": "300013",
+      "contractOtpCode": "twilio-verify",
+      "contractOtpChannel": "sms",
+      "contractOtpExpiresAt": "2026-05-14 07:49:31",
+      "contractOtpAttempts": "0",
+      "contractOtpVerifiedAt": "NULL",
+      "renterPhone": "67992914788"
+    },
+    {
+      "id": "1770008",
+      "renterId": "300013",
+      "contractOtpCode": "554003",
+      "contractOtpChannel": "sms",
+      "contractOtpExpiresAt": "2026-05-14 07:34:32",
+      "contractOtpAttempts": "0",
+      "contractOtpVerifiedAt": "NULL",
+      "renterPhone": "67992914788"
+    },
+    {
+      "id": "1770004",
+      "renterId": "300013",
+      "contractOtpCode": "925300",
+      "contractOtpChannel": "sms",
+      "contractOtpExpiresAt": "2026-05-14 06:49:01",
+      "contractOtpAttempts": "0",
+      "contractOtpVerifiedAt": "NULL",
+      "renterPhone": "67992914788"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\trenterId\tcontractOtpCode\tcontractOtpChannel\tcontractOtpExpiresAt\tcontractOtpAttempts\tcontractOtpVerifiedAt\trenterPhone\n1770019\t300013\ttwilio-verify\tsms\t2026-05-14 08:16:49\t0\tNULL\t67992914788\n1770012\t300013\ttwilio-verify\tsms\t2026-05-14 07:49:31\t0\tNULL\t67992914788\n1770008\t300013\t554003\tsms\t2026-05-14 07:34:32\t0\tNULL\t67992914788\n1770004\t300013\t925300\tsms\t2026-05-14 06:49:01\t0\tNULL\t67992914788\n",
+  "stderr": "",
+  "execution_time_ms": 625
+}

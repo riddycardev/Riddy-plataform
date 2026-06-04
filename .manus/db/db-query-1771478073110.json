@@ -1,0 +1,20 @@
+{
+  "query": "SELECT id, brand, model, licensePlate, pickupCity, pickupState, status, isVerified FROM vehicles WHERE pickupCity LIKE '%Porto Velho%' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, model, licensePlate, pickupCity, pickupState, status, isVerified FROM vehicles WHERE pickupCity LIKE '%Porto Velho%' LIMIT 10;",
+  "rows": [
+    {
+      "id": "90003",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "licensePlate": "TXV6B33",
+      "pickupCity": "Porto Velho",
+      "pickupState": "RO",
+      "status": "active",
+      "isVerified": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tmodel\tlicensePlate\tpickupCity\tpickupState\tstatus\tisVerified\n90003\tNissan\tsentra exc\tTXV6B33\tPorto Velho\tRO\tactive\t1\n",
+  "stderr": "",
+  "execution_time_ms": 493
+}

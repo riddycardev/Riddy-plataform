@@ -1,0 +1,50 @@
+{
+  "query": "SHOW COLUMNS FROM bookings LIKE 'contractOtp%';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SHOW COLUMNS FROM bookings LIKE 'contractOtp%';",
+  "rows": [
+    {
+      "Field": "contractOtpCode",
+      "Type": "varchar(10)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "contractOtpExpiresAt",
+      "Type": "timestamp",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "contractOtpChannel",
+      "Type": "enum('sms','email')",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "contractOtpVerifiedAt",
+      "Type": "timestamp",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "contractOtpAttempts",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\ncontractOtpCode\tvarchar(10)\tYES\t\tNULL\t\ncontractOtpExpiresAt\ttimestamp\tYES\t\tNULL\t\ncontractOtpChannel\tenum('sms','email')\tYES\t\tNULL\t\ncontractOtpVerifiedAt\ttimestamp\tYES\t\tNULL\t\ncontractOtpAttempts\tint\tNO\t\t0\t\n",
+  "stderr": "",
+  "execution_time_ms": 651
+}

@@ -1,0 +1,16 @@
+{
+  "query": "SELECT COUNT(*) as total_vehicles, \n       SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active_vehicles,\n       SUM(CASE WHEN status = 'inactive' THEN 1 ELSE 0 END) as inactive_vehicles,\n       SUM(CASE WHEN status = 'archived' THEN 1 ELSE 0 END) as archived_vehicles\nFROM vehicles;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT COUNT(*) as total_vehicles, \n       SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active_vehicles,\n       SUM(CASE WHEN status = 'inactive' THEN 1 ELSE 0 END) as inactive_vehicles,\n       SUM(CASE WHEN status = 'archived' THEN 1 ELSE 0 END) as archived_vehicles\nFROM vehicles;",
+  "rows": [
+    {
+      "total_vehicles": "231",
+      "active_vehicles": "227",
+      "inactive_vehicles": "0",
+      "archived_vehicles": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_vehicles\tactive_vehicles\tinactive_vehicles\tarchived_vehicles\n231\t227\t0\t0\n",
+  "stderr": "",
+  "execution_time_ms": 709
+}

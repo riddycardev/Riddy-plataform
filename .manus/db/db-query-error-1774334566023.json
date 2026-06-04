@@ -1,0 +1,8 @@
+{
+  "query": "\n-- Primeiro verificar se existe um host (userType = 'host') no banco\nSELECT id, name, email, userType FROM users WHERE userType = 'host' LIMIT 3;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute \n-- Primeiro verificar se existe um host (userType = 'host') no banco\nSELECT id, name, email, userType FROM users WHERE userType = 'host' LIMIT 3;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1054 (42S22) at line 3: Unknown column 'usertype' in 'where clause'"
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "query": "SELECT * FROM vehicle_images;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT * FROM vehicle_images;",
+  "rows": [
+    {
+      "id": "60001",
+      "vehicleId": "30007",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941628735-WDTdGoTZ.jpeg",
+      "fileKey": "vehicles/780249/1769941628735-WDTdGoTZ.jpeg",
+      "imageType": "other",
+      "sortOrder": "0",
+      "isMain": "1",
+      "createdAt": "2026-02-01 10:27:53"
+    },
+    {
+      "id": "60002",
+      "vehicleId": "30007",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941627791-QKYbmkJw.jpeg",
+      "fileKey": "vehicles/780249/1769941627791-QKYbmkJw.jpeg",
+      "imageType": "other",
+      "sortOrder": "1",
+      "isMain": "0",
+      "createdAt": "2026-02-01 10:27:54"
+    },
+    {
+      "id": "60003",
+      "vehicleId": "30007",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941628262-1e9xMDDv.jpeg",
+      "fileKey": "vehicles/780249/1769941628262-1e9xMDDv.jpeg",
+      "imageType": "other",
+      "sortOrder": "2",
+      "isMain": "0",
+      "createdAt": "2026-02-01 10:27:54"
+    },
+    {
+      "id": "60004",
+      "vehicleId": "30007",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941652304-hTJHJmEj.jpeg",
+      "fileKey": "vehicles/780249/1769941652304-hTJHJmEj.jpeg",
+      "imageType": "other",
+      "sortOrder": "3",
+      "isMain": "0",
+      "createdAt": "2026-02-01 10:27:54"
+    },
+    {
+      "id": "60005",
+      "vehicleId": "30008",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769942404377-eq4FfeJX.jpeg",
+      "fileKey": "vehicles/780249/1769942404377-eq4FfeJX.jpeg",
+      "imageType": "other",
+      "sortOrder": "0",
+      "isMain": "1",
+      "createdAt": "2026-02-01 10:40:31"
+    },
+    {
+      "id": "60006",
+      "vehicleId": "30008",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769942403963-hOG3Ufy0.jpeg",
+      "fileKey": "vehicles/780249/1769942403963-hOG3Ufy0.jpeg",
+      "imageType": "other",
+      "sortOrder": "1",
+      "isMain": "0",
+      "createdAt": "2026-02-01 10:40:31"
+    },
+    {
+      "id": "60007",
+      "vehicleId": "30008",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769942403373-4r1q8X79.jpeg",
+      "fileKey": "vehicles/780249/1769942403373-4r1q8X79.jpeg",
+      "imageType": "other",
+      "sortOrder": "2",
+      "isMain": "0",
+      "createdAt": "2026-02-01 10:40:31"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tvehicleId\timageUrl\tfileKey\timageType\tsortOrder\tisMain\tcreatedAt\n60001\t30007\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941628735-WDTdGoTZ.jpeg\tvehicles/780249/1769941628735-WDTdGoTZ.jpeg\tother\t0\t1\t2026-02-01 10:27:53\n60002\t30007\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941627791-QKYbmkJw.jpeg\tvehicles/780249/1769941627791-QKYbmkJw.jpeg\tother\t1\t0\t2026-02-01 10:27:54\n60003\t30007\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941628262-1e9xMDDv.jpeg\tvehicles/780249/1769941628262-1e9xMDDv.jpeg\tother\t2\t0\t2026-02-01 10:27:54\n60004\t30007\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769941652304-hTJHJmEj.jpeg\tvehicles/780249/1769941652304-hTJHJmEj.jpeg\tother\t3\t0\t2026-02-01 10:27:54\n60005\t30008\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769942404377-eq4FfeJX.jpeg\tvehicles/780249/1769942404377-eq4FfeJX.jpeg\tother\t0\t1\t2026-02-01 10:40:31\n60006\t30008\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769942403963-hOG3Ufy0.jpeg\tvehicles/780249/1769942403963-hOG3Ufy0.jpeg\tother\t1\t0\t2026-02-01 10:40:31\n60007\t30008\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/780249/1769942403373-4r1q8X79.jpeg\tvehicles/780249/1769942403373-4r1q8X79.jpeg\tother\t2\t0\t2026-02-01 10:40:31\n",
+  "stderr": "",
+  "execution_time_ms": 348
+}

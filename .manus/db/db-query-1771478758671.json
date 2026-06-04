@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, brand, model, pickupCity, pickupState, status, dailyPrice FROM vehicles WHERE status = 'active' LIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, model, pickupCity, pickupState, status, dailyPrice FROM vehicles WHERE status = 'active' LIMIT 10;",
+  "rows": [
+    {
+      "id": "90002",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "pickupCity": "Belo Horizonte",
+      "pickupState": "MG",
+      "status": "active",
+      "dailyPrice": "199.00"
+    },
+    {
+      "id": "90003",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "pickupCity": "Porto Velho",
+      "pickupState": "RO",
+      "status": "active",
+      "dailyPrice": "199.00"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tmodel\tpickupCity\tpickupState\tstatus\tdailyPrice\n90002\tNissan\tsentra exc\tBelo Horizonte\tMG\tactive\t199.00\n90003\tNissan\tsentra exc\tPorto Velho\tRO\tactive\t199.00\n",
+  "stderr": "",
+  "execution_time_ms": 350
+}

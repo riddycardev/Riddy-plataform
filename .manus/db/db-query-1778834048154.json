@@ -1,0 +1,50 @@
+{
+  "query": "SHOW COLUMNS FROM users WHERE Field IN ('role', 'activeMode');\nSHOW COLUMNS FROM notifications WHERE Field IN ('contextMode', 'notificationType');",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SHOW COLUMNS FROM users WHERE Field IN ('role', 'activeMode');\nSHOW COLUMNS FROM notifications WHERE Field IN ('contextMode', 'notificationType');",
+  "rows": [
+    {
+      "Field": "role",
+      "Type": "enum('user','host','admin','both')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "user",
+      "Extra": ""
+    },
+    {
+      "Field": "activeMode",
+      "Type": "enum('renter','host')",
+      "Null": "YES",
+      "Key": "",
+      "Default": "renter",
+      "Extra": ""
+    },
+    {
+      "Field": "Field",
+      "Type": "Type",
+      "Null": "Null",
+      "Key": "Key",
+      "Default": "Default",
+      "Extra": "Extra"
+    },
+    {
+      "Field": "contextMode",
+      "Type": "enum('renter','host','system')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "system",
+      "Extra": ""
+    },
+    {
+      "Field": "notificationType",
+      "Type": "enum('booking_request','booking_confirmed','booking_cancelled','payment_received','payment_failed','review_received','message_received','document_approved','document_rejected','fine_issued','system')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nrole\tenum('user','host','admin','both')\tNO\t\tuser\t\nactiveMode\tenum('renter','host')\tYES\t\trenter\t\nField\tType\tNull\tKey\tDefault\tExtra\ncontextMode\tenum('renter','host','system')\tNO\t\tsystem\t\nnotificationType\tenum('booking_request','booking_confirmed','booking_cancelled','payment_received','payment_failed','review_received','message_received','document_approved','document_rejected','fine_issued','system')\tNO\t\tNULL\t\n",
+  "stderr": "",
+  "execution_time_ms": 652
+}

@@ -1,0 +1,28 @@
+{
+  "query": "SELECT id, vehicleId, imageUrl, isMain FROM vehicle_images WHERE vehicleId = 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, vehicleId, imageUrl, isMain FROM vehicle_images WHERE vehicleId = 1;",
+  "rows": [
+    {
+      "id": "30001",
+      "vehicleId": "1",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769922785471-_BZWdN39-sentra.jpeg",
+      "isMain": "1"
+    },
+    {
+      "id": "30002",
+      "vehicleId": "1",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769922784457-vOho6XDM-ffff.jpeg",
+      "isMain": "0"
+    },
+    {
+      "id": "30003",
+      "vehicleId": "1",
+      "imageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769922784993-lppBu4P0-WhatsApp Image 2026-01-26 at 19.39.01.jpeg",
+      "isMain": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tvehicleId\timageUrl\tisMain\n30001\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769922785471-_BZWdN39-sentra.jpeg\t1\n30002\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769922784457-vOho6XDM-ffff.jpeg\t0\n30003\t1\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769922784993-lppBu4P0-WhatsApp Image 2026-01-26 at 19.39.01.jpeg\t0\n",
+  "stderr": "",
+  "execution_time_ms": 347
+}

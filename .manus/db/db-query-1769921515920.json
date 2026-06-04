@@ -1,0 +1,16 @@
+{
+  "query": "SELECT id, brand, model, mainImageUrl FROM vehicles WHERE id = 1;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, model, mainImageUrl FROM vehicles WHERE id = 1;",
+  "rows": [
+    {
+      "id": "1",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "mainImageUrl": "https://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769834641485-CMW6KJ-p-ffff.jpeg"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tmodel\tmainImageUrl\n1\tNissan\tsentra exc\thttps://d2xsxph8kpxj0f.cloudfront.net/310519663324780556/5MKE4LDVikZTU9bHnRFBMx/vehicles/300013/1769834641485-CMW6KJ-p-ffff.jpeg\n",
+  "stderr": "",
+  "execution_time_ms": 82
+}

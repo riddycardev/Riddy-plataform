@@ -1,0 +1,160 @@
+{
+  "query": "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'bookings' ORDER BY ORDINAL_POSITION;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'bookings' ORDER BY ORDINAL_POSITION;",
+  "rows": [
+    {
+      "COLUMN_NAME": "id"
+    },
+    {
+      "COLUMN_NAME": "vehicleId"
+    },
+    {
+      "COLUMN_NAME": "renterId"
+    },
+    {
+      "COLUMN_NAME": "hostId"
+    },
+    {
+      "COLUMN_NAME": "startDate"
+    },
+    {
+      "COLUMN_NAME": "endDate"
+    },
+    {
+      "COLUMN_NAME": "pickupLocation"
+    },
+    {
+      "COLUMN_NAME": "returnLocation"
+    },
+    {
+      "COLUMN_NAME": "actualPickupTime"
+    },
+    {
+      "COLUMN_NAME": "actualReturnTime"
+    },
+    {
+      "COLUMN_NAME": "startMileage"
+    },
+    {
+      "COLUMN_NAME": "endMileage"
+    },
+    {
+      "COLUMN_NAME": "dailyKmLimit"
+    },
+    {
+      "COLUMN_NAME": "extraKmPrice"
+    },
+    {
+      "COLUMN_NAME": "dailyRate"
+    },
+    {
+      "COLUMN_NAME": "totalDays"
+    },
+    {
+      "COLUMN_NAME": "subtotal"
+    },
+    {
+      "COLUMN_NAME": "discountAmount"
+    },
+    {
+      "COLUMN_NAME": "deliveryFee"
+    },
+    {
+      "COLUMN_NAME": "serviceFee"
+    },
+    {
+      "COLUMN_NAME": "insuranceFee"
+    },
+    {
+      "COLUMN_NAME": "securityDeposit"
+    },
+    {
+      "COLUMN_NAME": "totalAmount"
+    },
+    {
+      "COLUMN_NAME": "extraKmCharge"
+    },
+    {
+      "COLUMN_NAME": "lateReturnCharge"
+    },
+    {
+      "COLUMN_NAME": "cleaningCharge"
+    },
+    {
+      "COLUMN_NAME": "damageCharge"
+    },
+    {
+      "COLUMN_NAME": "fuelCharge"
+    },
+    {
+      "COLUMN_NAME": "status"
+    },
+    {
+      "COLUMN_NAME": "paymentStatus"
+    },
+    {
+      "COLUMN_NAME": "asaasPaymentId"
+    },
+    {
+      "COLUMN_NAME": "paidAt"
+    },
+    {
+      "COLUMN_NAME": "expiresAt"
+    },
+    {
+      "COLUMN_NAME": "cancelledAt"
+    },
+    {
+      "COLUMN_NAME": "cancellationReason"
+    },
+    {
+      "COLUMN_NAME": "refundAmount"
+    },
+    {
+      "COLUMN_NAME": "renterNotes"
+    },
+    {
+      "COLUMN_NAME": "hostNotes"
+    },
+    {
+      "COLUMN_NAME": "createdAt"
+    },
+    {
+      "COLUMN_NAME": "updatedAt"
+    },
+    {
+      "COLUMN_NAME": "contractAccepted"
+    },
+    {
+      "COLUMN_NAME": "contractAcceptedAt"
+    },
+    {
+      "COLUMN_NAME": "contractAcceptedIp"
+    },
+    {
+      "COLUMN_NAME": "contractVersion"
+    },
+    {
+      "COLUMN_NAME": "renterFullName"
+    },
+    {
+      "COLUMN_NAME": "renterCpf"
+    },
+    {
+      "COLUMN_NAME": "renterEmail"
+    },
+    {
+      "COLUMN_NAME": "renterPhone"
+    },
+    {
+      "COLUMN_NAME": "verificationStatus"
+    },
+    {
+      "COLUMN_NAME": "contractPdfUrl"
+    }
+  ],
+  "messages": [],
+  "stdout": "COLUMN_NAME\nid\nvehicleId\nrenterId\nhostId\nstartDate\nendDate\npickupLocation\nreturnLocation\nactualPickupTime\nactualReturnTime\nstartMileage\nendMileage\ndailyKmLimit\nextraKmPrice\ndailyRate\ntotalDays\nsubtotal\ndiscountAmount\ndeliveryFee\nserviceFee\ninsuranceFee\nsecurityDeposit\ntotalAmount\nextraKmCharge\nlateReturnCharge\ncleaningCharge\ndamageCharge\nfuelCharge\nstatus\npaymentStatus\nasaasPaymentId\npaidAt\nexpiresAt\ncancelledAt\ncancellationReason\nrefundAmount\nrenterNotes\nhostNotes\ncreatedAt\nupdatedAt\ncontractAccepted\ncontractAcceptedAt\ncontractAcceptedIp\ncontractVersion\nrenterFullName\nrenterCpf\nrenterEmail\nrenterPhone\nverificationStatus\ncontractPdfUrl\n",
+  "stderr": "",
+  "execution_time_ms": 600
+}

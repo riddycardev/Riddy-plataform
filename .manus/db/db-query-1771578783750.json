@@ -1,0 +1,40 @@
+{
+  "query": "SELECT id, brand, model, pickupCity, pickupState, status, isVerified, instantBooking FROM vehicles;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, model, pickupCity, pickupState, status, isVerified, instantBooking FROM vehicles;",
+  "rows": [
+    {
+      "id": "90002",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "pickupCity": "Belo Horizonte",
+      "pickupState": "MG",
+      "status": "active",
+      "isVerified": "1",
+      "instantBooking": "0"
+    },
+    {
+      "id": "90003",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "pickupCity": "Porto Velho",
+      "pickupState": "RO",
+      "status": "active",
+      "isVerified": "1",
+      "instantBooking": "0"
+    },
+    {
+      "id": "150001",
+      "brand": "Nissan",
+      "model": "Sentra ",
+      "pickupCity": "Ji-Paraná",
+      "pickupState": "RO",
+      "status": "pending_approval",
+      "isVerified": "0",
+      "instantBooking": "0"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tmodel\tpickupCity\tpickupState\tstatus\tisVerified\tinstantBooking\n90002\tNissan\tsentra exc\tBelo Horizonte\tMG\tactive\t1\t0\n90003\tNissan\tsentra exc\tPorto Velho\tRO\tactive\t1\t0\n150001\tNissan\tSentra \tJi-Paraná\tRO\tpending_approval\t0\t0\n",
+  "stderr": "",
+  "execution_time_ms": 351
+}

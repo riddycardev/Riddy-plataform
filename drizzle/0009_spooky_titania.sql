@@ -1,0 +1,1 @@
+ALTER TABLE `vehicles` MODIFY COLUMN `status` enum('draft','pending_approval','active','inactive','suspended','rejected') NOT NULL DEFAULT 'draft';

@@ -1,0 +1,17 @@
+{
+  "query": "SELECT id, brand, model, dailyKmLimit, extraKmPrice FROM vehicles WHERE id = 150002;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, model, dailyKmLimit, extraKmPrice FROM vehicles WHERE id = 150002;",
+  "rows": [
+    {
+      "id": "150002",
+      "brand": "Nissan",
+      "model": "Sentra",
+      "dailyKmLimit": "100",
+      "extraKmPrice": "0.50"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tmodel\tdailyKmLimit\textraKmPrice\n150002\tNissan\tSentra\t100\t0.50\n",
+  "stderr": "",
+  "execution_time_ms": 56
+}

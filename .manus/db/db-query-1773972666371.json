@@ -1,0 +1,50 @@
+{
+  "query": "SELECT id, vehicleId, renterId, status, totalAmount, createdAt FROM bookings ORDER BY createdAt DESC LIMIT 5;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, vehicleId, renterId, status, totalAmount, createdAt FROM bookings ORDER BY createdAt DESC LIMIT 5;",
+  "rows": [
+    {
+      "id": "270012",
+      "vehicleId": "150002",
+      "renterId": "1",
+      "status": "pending_payment",
+      "totalAmount": "1015.00",
+      "createdAt": "2026-03-20 02:09:37"
+    },
+    {
+      "id": "270011",
+      "vehicleId": "150002",
+      "renterId": "1",
+      "status": "pending_payment",
+      "totalAmount": "812.00",
+      "createdAt": "2026-03-20 02:08:13"
+    },
+    {
+      "id": "270010",
+      "vehicleId": "240003",
+      "renterId": "1890278",
+      "status": "pending",
+      "totalAmount": "294.00",
+      "createdAt": "2026-03-20 00:52:48"
+    },
+    {
+      "id": "270008",
+      "vehicleId": "240003",
+      "renterId": "1890278",
+      "status": "pending",
+      "totalAmount": "294.00",
+      "createdAt": "2026-03-20 00:52:48"
+    },
+    {
+      "id": "270009",
+      "vehicleId": "240003",
+      "renterId": "1890278",
+      "status": "pending",
+      "totalAmount": "294.00",
+      "createdAt": "2026-03-20 00:52:48"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tvehicleId\trenterId\tstatus\ttotalAmount\tcreatedAt\n270012\t150002\t1\tpending_payment\t1015.00\t2026-03-20 02:09:37\n270011\t150002\t1\tpending_payment\t812.00\t2026-03-20 02:08:13\n270010\t240003\t1890278\tpending\t294.00\t2026-03-20 00:52:48\n270008\t240003\t1890278\tpending\t294.00\t2026-03-20 00:52:48\n270009\t240003\t1890278\tpending\t294.00\t2026-03-20 00:52:48\n",
+  "stderr": "",
+  "execution_time_ms": 64
+}

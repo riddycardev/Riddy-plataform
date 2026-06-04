@@ -1,0 +1,410 @@
+{
+  "query": "DESCRIBE vehicles;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute DESCRIBE vehicles;",
+  "rows": [
+    {
+      "Field": "id",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "PRI",
+      "Default": "NULL",
+      "Extra": "auto_increment"
+    },
+    {
+      "Field": "hostId",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "brand",
+      "Type": "varchar(100)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "model",
+      "Type": "varchar(100)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "year",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "color",
+      "Type": "varchar(50)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "licensePlate",
+      "Type": "varchar(10)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "renavam",
+      "Type": "varchar(20)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "chassi",
+      "Type": "varchar(30)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "vehicleType",
+      "Type": "enum('car','motorcycle')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "car",
+      "Extra": ""
+    },
+    {
+      "Field": "category",
+      "Type": "enum('popular','sedan','suv','luxury','electric','sport','pickup')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "transmission",
+      "Type": "enum('manual','automatic')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "automatic",
+      "Extra": ""
+    },
+    {
+      "Field": "fuelType",
+      "Type": "enum('gasoline','ethanol','flex','diesel','electric','hybrid')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "flex",
+      "Extra": ""
+    },
+    {
+      "Field": "seats",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "5",
+      "Extra": ""
+    },
+    {
+      "Field": "doors",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "4",
+      "Extra": ""
+    },
+    {
+      "Field": "trunkCapacity",
+      "Type": "int",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "engineSize",
+      "Type": "varchar(10)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "features",
+      "Type": "json",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "dailyPrice",
+      "Type": "decimal(10,2)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "weeklyDiscount",
+      "Type": "int",
+      "Null": "YES",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "monthlyDiscount",
+      "Type": "int",
+      "Null": "YES",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "dailyKmLimit",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "300",
+      "Extra": ""
+    },
+    {
+      "Field": "extraKmPrice",
+      "Type": "decimal(10,2)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0.50",
+      "Extra": ""
+    },
+    {
+      "Field": "pickupAddress",
+      "Type": "text",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "pickupCity",
+      "Type": "varchar(100)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "pickupState",
+      "Type": "varchar(2)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "pickupLatitude",
+      "Type": "decimal(10,8)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "pickupLongitude",
+      "Type": "decimal(11,8)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "deliveryAvailable",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "deliveryRadius",
+      "Type": "int",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "deliveryFee",
+      "Type": "decimal(10,2)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "minRentalDays",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "1",
+      "Extra": ""
+    },
+    {
+      "Field": "maxRentalDays",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "30",
+      "Extra": ""
+    },
+    {
+      "Field": "instantBooking",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "smokingAllowed",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "petsAllowed",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "status",
+      "Type": "enum('draft','pending_approval','active','inactive','suspended','rejected')",
+      "Null": "NO",
+      "Key": "",
+      "Default": "draft",
+      "Extra": ""
+    },
+    {
+      "Field": "isVerified",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "totalTrips",
+      "Type": "int",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "averageRating",
+      "Type": "decimal(3,2)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "totalEarnings",
+      "Type": "decimal(12,2)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0.00",
+      "Extra": ""
+    },
+    {
+      "Field": "mainImageUrl",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "createdAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": ""
+    },
+    {
+      "Field": "updatedAt",
+      "Type": "timestamp",
+      "Null": "NO",
+      "Key": "",
+      "Default": "CURRENT_TIMESTAMP",
+      "Extra": "DEFAULT_GENERATED on update CURRENT_TIMESTAMP"
+    },
+    {
+      "Field": "crlvUrl",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "crlvFileKey",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "crlvValidated",
+      "Type": "tinyint(1)",
+      "Null": "NO",
+      "Key": "",
+      "Default": "0",
+      "Extra": ""
+    },
+    {
+      "Field": "crlvOwnerName",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "insuranceUrl",
+      "Type": "text",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    },
+    {
+      "Field": "insuranceFileKey",
+      "Type": "varchar(255)",
+      "Null": "YES",
+      "Key": "",
+      "Default": "NULL",
+      "Extra": ""
+    }
+  ],
+  "messages": [],
+  "stdout": "Field\tType\tNull\tKey\tDefault\tExtra\nid\tint\tNO\tPRI\tNULL\tauto_increment\nhostId\tint\tNO\t\tNULL\t\nbrand\tvarchar(100)\tNO\t\tNULL\t\nmodel\tvarchar(100)\tNO\t\tNULL\t\nyear\tint\tNO\t\tNULL\t\ncolor\tvarchar(50)\tYES\t\tNULL\t\nlicensePlate\tvarchar(10)\tNO\t\tNULL\t\nrenavam\tvarchar(20)\tYES\t\tNULL\t\nchassi\tvarchar(30)\tYES\t\tNULL\t\nvehicleType\tenum('car','motorcycle')\tNO\t\tcar\t\ncategory\tenum('popular','sedan','suv','luxury','electric','sport','pickup')\tNO\t\tNULL\t\ntransmission\tenum('manual','automatic')\tNO\t\tautomatic\t\nfuelType\tenum('gasoline','ethanol','flex','diesel','electric','hybrid')\tNO\t\tflex\t\nseats\tint\tNO\t\t5\t\ndoors\tint\tNO\t\t4\t\ntrunkCapacity\tint\tYES\t\tNULL\t\nengineSize\tvarchar(10)\tYES\t\tNULL\t\nfeatures\tjson\tYES\t\tNULL\t\ndailyPrice\tdecimal(10,2)\tNO\t\tNULL\t\nweeklyDiscount\tint\tYES\t\t0\t\nmonthlyDiscount\tint\tYES\t\t0\t\ndailyKmLimit\tint\tNO\t\t300\t\nextraKmPrice\tdecimal(10,2)\tNO\t\t0.50\t\npickupAddress\ttext\tNO\t\tNULL\t\npickupCity\tvarchar(100)\tNO\t\tNULL\t\npickupState\tvarchar(2)\tNO\t\tNULL\t\npickupLatitude\tdecimal(10,8)\tYES\t\tNULL\t\npickupLongitude\tdecimal(11,8)\tYES\t\tNULL\t\ndeliveryAvailable\ttinyint(1)\tNO\t\t0\t\ndeliveryRadius\tint\tYES\t\tNULL\t\ndeliveryFee\tdecimal(10,2)\tYES\t\tNULL\t\nminRentalDays\tint\tNO\t\t1\t\nmaxRentalDays\tint\tNO\t\t30\t\ninstantBooking\ttinyint(1)\tNO\t\t0\t\nsmokingAllowed\ttinyint(1)\tNO\t\t0\t\npetsAllowed\ttinyint(1)\tNO\t\t0\t\nstatus\tenum('draft','pending_approval','active','inactive','suspended','rejected')\tNO\t\tdraft\t\nisVerified\ttinyint(1)\tNO\t\t0\t\ntotalTrips\tint\tNO\t\t0\t\naverageRating\tdecimal(3,2)\tYES\t\tNULL\t\ntotalEarnings\tdecimal(12,2)\tNO\t\t0.00\t\nmainImageUrl\ttext\tYES\t\tNULL\t\ncreatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\t\nupdatedAt\ttimestamp\tNO\t\tCURRENT_TIMESTAMP\tDEFAULT_GENERATED on update CURRENT_TIMESTAMP\ncrlvUrl\ttext\tYES\t\tNULL\t\ncrlvFileKey\tvarchar(255)\tYES\t\tNULL\t\ncrlvValidated\ttinyint(1)\tNO\t\t0\t\ncrlvOwnerName\ttext\tYES\t\tNULL\t\ninsuranceUrl\ttext\tYES\t\tNULL\t\ninsuranceFileKey\tvarchar(255)\tYES\t\tNULL\t\n",
+  "stderr": "",
+  "execution_time_ms": 53
+}

@@ -1,0 +1,130 @@
+{
+  "query": "SELECT id, brand, model, mainImageUrl FROM vehicles LIMIT 20;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 2YZX9KT7ECc8qgo.root --database 5MKE4LDVikZTU9bHnRFBMx --execute SELECT id, brand, model, mainImageUrl FROM vehicles LIMIT 20;",
+  "rows": [
+    {
+      "id": "90002",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "mainImageUrl": "https://res.cloudinary.com/dlj5vibpd/image/upload/v1769955549/vehicles/90002/klsjhlao7imosjwkjqml.jpg"
+    },
+    {
+      "id": "90003",
+      "brand": "Nissan",
+      "model": "sentra exc",
+      "mainImageUrl": "https://res.cloudinary.com/dlj5vibpd/image/upload/v1769957473/vehicles/90003/ffpxvkdp6klba7qxt1n5.jpg"
+    },
+    {
+      "id": "150001",
+      "brand": "Nissan",
+      "model": "Sentra ",
+      "mainImageUrl": "https://res.cloudinary.com/dlj5vibpd/image/upload/v1771578582/vehicles/150001/ujquxgqzbztbpz9tdj7e.jpg"
+    },
+    {
+      "id": "150002",
+      "brand": "Nissan",
+      "model": "Sentra",
+      "mainImageUrl": "https://res.cloudinary.com/dlj5vibpd/image/upload/v1771580048/vehicles/150002/pkpkeazmejb01phneljf.jpg"
+    },
+    {
+      "id": "180001",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "180002",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "210001",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "210002",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "240001",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "240002",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "240003",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "270001",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "270002",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "270003",
+      "brand": "Toyota",
+      "model": "CIVIC EXL 2.0",
+      "mainImageUrl": "https://res.cloudinary.com/dlj5vibpd/image/upload/v1773980794/vehicles/270003/vauzq7em56mnqu5d7iov.jpg"
+    },
+    {
+      "id": "270004",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "270005",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "270006",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "300001",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "300002",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    },
+    {
+      "id": "300003",
+      "brand": "Test",
+      "model": "Contract Test",
+      "mainImageUrl": "NULL"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tbrand\tmodel\tmainImageUrl\n90002\tNissan\tsentra exc\thttps://res.cloudinary.com/dlj5vibpd/image/upload/v1769955549/vehicles/90002/klsjhlao7imosjwkjqml.jpg\n90003\tNissan\tsentra exc\thttps://res.cloudinary.com/dlj5vibpd/image/upload/v1769957473/vehicles/90003/ffpxvkdp6klba7qxt1n5.jpg\n150001\tNissan\tSentra \thttps://res.cloudinary.com/dlj5vibpd/image/upload/v1771578582/vehicles/150001/ujquxgqzbztbpz9tdj7e.jpg\n150002\tNissan\tSentra\thttps://res.cloudinary.com/dlj5vibpd/image/upload/v1771580048/vehicles/150002/pkpkeazmejb01phneljf.jpg\n180001\tTest\tContract Test\tNULL\n180002\tTest\tContract Test\tNULL\n210001\tTest\tContract Test\tNULL\n210002\tTest\tContract Test\tNULL\n240001\tTest\tContract Test\tNULL\n240002\tTest\tContract Test\tNULL\n240003\tTest\tContract Test\tNULL\n270001\tTest\tContract Test\tNULL\n270002\tTest\tContract Test\tNULL\n270003\tToyota\tCIVIC EXL 2.0\thttps://res.cloudinary.com/dlj5vibpd/image/upload/v1773980794/vehicles/270003/vauzq7em56mnqu5d7iov.jpg\n270004\tTest\tContract Test\tNULL\n270005\tTest\tContract Test\tNULL\n270006\tTest\tContract Test\tNULL\n300001\tTest\tContract Test\tNULL\n300002\tTest\tContract Test\tNULL\n300003\tTest\tContract Test\tNULL\n",
+  "stderr": "",
+  "execution_time_ms": 669
+}
