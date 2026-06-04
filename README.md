@@ -199,12 +199,74 @@ RESEND_API_KEY=...
 | TypeScript Errors | 0 |
 | Cobertura de Testes | 85%+ |
 
+## 🏗️ Arquitetura Detalhada
+
+### Fluxo de Dados
+
+```
+Browser (React)
+    │
+    │  POST /api/trpc (batch, superjson)
+    ▼
+Express Server
+    │
+    ├── tRPC Router (server/routers.ts)
+    │       ├── auth.*          — Login, logout, perfil
+    │       ├── vehicle.*       — CRUD de carros
+    │       ├── motorcycle.*    — CRUD de motos
+    │       ├── booking.*       — Reservas e check-in/out
+    │       ├── payment.*       — Pagamentos MP + Stripe
+    │       ├── document.*      — Upload KYC
+    │       ├── levels.*        — RIDDY Ranks e conquistas
+    │       ├── admin.*         — Painel administrativo
+    │       ├── chat.*          — Mensagens
+    │       ├── review.*        — Avaliações
+    │       └── notification.*  — Notificações
+    │
+    ├── MySQL via Drizzle ORM
+    ├── AWS S3 (storage de arquivos)
+    ├── Cloudinary (processamento de imagens)
+    ├── Mercado Pago (pagamentos BR)
+    └── Resend / Twilio (comunicação)
+```
+
+### Autenticação
+
+- JWT armazenado em **cookie HttpOnly** (`session`)
+- Cada request a `/api/trpc` lê o cookie via `server/_core/context.ts`
+- Procedures protegidas usam `protectedProcedure` — lançam 401 se não autenticado
+- Frontend lê estado via `useAuth()` hook (`client/src/_core/hooks/useAuth.ts`)
+- Roles: `admin` | `user` — verificação em `ctx.user.role`
+
+### Webhooks Externos
+
+| Endpoint | Serviço | Descrição |
+|----------|---------|----------|
+| `POST /api/webhooks/mercadopago` | Mercado Pago | Confirmação de pagamentos |
+| `POST /api/webhooks/stripe` | Stripe | Notificações Stripe |
+
+### Sistema RIDDY Ranks
+
+Configuração em `shared/levels.ts`. Dois contextos independentes:
+- **Locatário** — 6 níveis: Explorer → Road Rider → Riddy Pro → Velocista → Elite Driver → Riddy Legend
+- **Anfitrião** — 6 níveis: Host Iniciante → Host Ativo → Host Pro → Host Elite → Host Master → Host Legend
+
+### Engine de Stories (Canvas 2D)
+
+Arquivos em `client/src/lib/`:
+- `generateRiddyCard.ts` — Cartões de nível para compartilhar
+- `generateRiddyStory.ts` — 6 formatos de Stories para Instagram (1080×1920px)
+
+Ambos usam a Canvas 2D API pura, sem dependências externas.
+
+---
+
 ## 🐛 Problemas Conhecidos
 
 1. **IBGE Cities API** — Timeout ocasional (fallback implementado)
 2. **Cloudinary Credentials** — Não configuradas em dev
-3. **Monolito de Routers** — Refatoração recomendada em 2-3 dias
-4. **Componentes Monolíticos** — BookingFlow, Cars.tsx > 800 linhas
+3. **Monolito de Routers** — `server/routers.ts` com +2000 linhas — refatoração recomendada
+4. **Componentes Monolíticos** — `BookingFlow.tsx`, `Cars.tsx` > 800 linhas cada
 
 ## 📝 Roadmap
 
